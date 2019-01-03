@@ -1,0 +1,124 @@
+@charset "UTF-8";
+//reset for pc
+
+//--------------------- fixed init ---------------------//
+
+*, *:before, *:after {
+	box-sizing:border-box;
+}
+body, h1, h2, h3, h4, h5, h6, p, dl, dd, ul, ol, pre, blockquote, textarea, input, button, hr, figure { 
+	margin:0; 
+}
+ul, ol, th, td, button, textarea, input { 
+	padding:0; 
+}
+ul, ol { 
+	list-style: none; 
+}
+h1, h2, h3, h4, h5, h6 { 
+	font-size: 100%; 
+	font-weight: normal; 
+}
+em, i {
+	font-style: normal;
+}
+img { 
+	vertical-align: top; 
+	border: none; 
+}
+sub,
+sup {
+  	font-size: 75%;
+  	line-height: 0;
+  	position: relative;
+  	vertical-align: baseline;
+}
+sup {
+  	top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+svg:not(:root) {
+  	overflow: hidden;
+}
+table { 
+	border-collapse: collapse; 
+	border-spacing: 0; 
+}
+input, select { 
+	border: none;
+	vertical-align: middle; 
+	outline: none;
+}
+textarea { 
+	resize: vertical; 
+	border: none;
+	outline: none;
+	box-shadow: none;
+}
+html, body {
+    height: 100%;
+    // scrollbar-face-color: #e3e3e3;		// 滚动条3D表面（ThreedFace）的颜色
+    // scrollbar-highlight-color: #fff;	// 滚动条3D界面的亮边（ThreedHighlight）颜色
+    // scrollbar-shadow-color: #eee;		// 滚动条3D界面的暗边（ThreedShadow）颜色
+    // scrollbar-3dlight-color: #eee; 		// 滚动条亮边框颜色
+    // scrollbar-arrow-color: #000; 		// 滚动条方向箭头的颜色 
+    // scrollbar-track-color: #fff; 		// 滚动条的拖动区域(TrackBar)颜色
+    // scrollbar-darkshadow-color: #fff; 	// 滚动条暗边框（ThreedDarkShadow）颜色
+}
+a, a:hover, a:active {
+	outline: 0;
+	text-decoration: none;
+	background-color: transparent;
+}
+[placeholder],
+*[placeholder] {
+	color: #999;	
+}
+
+//--------------------- depend on your needs ---------------------//
+
+input, textarea, select {       
+	font: 12px/1.5 'Microsoft YaHei', 'SimSun', Arial, Helvetica;
+}  
+body { 
+	font: 12px/1.5 'Microsoft YaHei', 'SimSun', Arial, Helvetica;
+	color: #333;
+}
+a { 
+	color: inherit; 
+}
+a:hover { 
+	color: inherit;
+}
+ 
+
+//--------------------- other reset if you need ---------------------//
+
+// IE去除输入框自带清除文字按钮
+input::-ms-clear {
+	display: none;
+}
+input::-ms-reveal {
+	display: none;
+}
+
+
+// webkit美化滚动条
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 3px;
+	background: #dcceba;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-ms-clear,
+::-ms-reveal {
+	display: none;
+}

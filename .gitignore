@@ -1,0 +1,16 @@
+node_modules/
+*.log
+/dist
+*.iml
+.idea
+.nuxt
+docs-dist
+sw.js
+workbox*.js*
+.DS_Store
+.vscode
+coverage
+es
+docs/static/sw.js
+*.swp
+bundle.css

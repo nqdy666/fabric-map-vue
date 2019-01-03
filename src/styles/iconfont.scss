@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'fm-iconfont';  /* project id 969499 */
+  src: url('./fonts/iconfont.eot'),
+  url('./fonts/iconfont.woff') format('woff'),
+  url('./fonts/iconfont.ttf') format('truetype'),
+  url('./fonts/iconfont.svg#iconfont') format('svg');
+}
+
+i[class^="fm-icon"], i[class*=" fm-icon"] {
+  font-family:"fm-iconfont" !important;
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+}
+
+.fm-icon-plus:before { content: "\e7fe"; }
+.fm-icon-minus:before { content: "\e7fd"; }
+.fm-icon-down:before { content: "\e7eb"; }
+.fm-icon-scan:before { content: "\e7d4"; }
+.fm-icon-delete:before { content: "\e7c3"; }
+.fm-icon-up-circle:before { content: "\e785"; }
+.fm-icon-down-circle:before { content: "\e780"; }
+.fm-icon-left-circle:before { content: "\e77f"; }
+.fm-icon-right-circle:before { content: "\e783"; }
+.fm-icon-plus-circle:before { content: "\e781"; }
+.fm-icon-base-station:before { content: "\e666"; }
+.fm-icon-location-tag:before { content: "\e629"; }
+.fm-icon-lock:before { content: "\e7ca"; }
+.fm-icon-unlock:before { content: "\e7c9"; }
+.fm-icon-left:before { content: "\e7ec"; }
+.fm-icon-right:before { content: "\e7ed"; }
+.fm-icon-top:before { content: "\e7ef"; }
+.fm-icon-bottom:before { content: "\e7eb"; }
+.fm-icon-reload:before { content: "\e788"; }
