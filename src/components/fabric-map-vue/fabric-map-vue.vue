@@ -424,15 +424,12 @@ export default {
       //   const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y })
       //   await this.callFun('heatmapAddCb', { coordX, coordY })
       // }
-      this.renderHeatmap()
     },
     handleSvgMapScaling (opt) {
       this.updatePointLine()
-      this.renderHeatmap()
     },
     handleSvgMapScaled () {
       this.updatePointLine()
-      this.renderHeatmap()
     },
     initPointEvents (point) {
       const self = this

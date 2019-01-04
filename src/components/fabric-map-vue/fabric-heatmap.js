@@ -42,6 +42,21 @@ export default {
         container: this.$el.querySelector('.canvas-container')
       })
       this.renderHeatmap()
+      this.canvas.on('mouse:down', this.handleCanvasMouseDownForHeatmap)
+      this.canvas.on('object:scaling', this.handleCanvasScalingForHeatmap)
+      this.canvas.on('object:moving', this.handleCanvasMovingForHeatmap)
+    },
+    handleCanvasMouseDownForHeatmap (opt) {
+    },
+    handleCanvasScalingForHeatmap (opt) {
+      if (opt.target === this.svgMap) {
+        this.renderHeatmap()
+      }
+    },
+    handleCanvasMovingForHeatmap (opt) {
+      if (opt.target === this.svgMap) {
+        this.renderHeatmap()
+      }
     },
     renderHeatmap () {
       const data = this.heatmapData.map(item => {
