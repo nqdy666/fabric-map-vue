@@ -24,7 +24,7 @@ export default {
     },
     heatmapClickDrawable: {
       type: Boolean,
-      default: false
+      default: true
     },
     heatmapMoveDrawable: {
       type: Boolean,
@@ -42,19 +42,35 @@ export default {
         container: this.$el.querySelector('.canvas-container')
       })
       this.renderHeatmap()
-      this.canvas.on('mouse:down', this.handleCanvasMouseDownForHeatmap)
+      this.canvas.on('mouse:up', this.handleCanvasMouseUpForHeatmap)
       this.canvas.on('object:scaling', this.handleCanvasScalingForHeatmap)
-      this.canvas.on('object:moving', this.handleCanvasMovingForHeatmap)
+      this.canvas.on('mouse:move', this.handleCanvasMouseMoveForHeatmap)
     },
-    handleCanvasMouseDownForHeatmap (opt) {
+    async handleCanvasMouseUpForHeatmap (opt) {
+      if (opt.target === this.svgMap) {
+        if (this.heatmapClickDrawable && this.heatmap && opt.pointer) {
+          // 根据坐标来判断，当前是处于拖动状态，还是点击状态
+          if (this.svgMap.left === this.mouseDownSvgMapPointer.left
+            && this.svgMap.top === this.mouseDownSvgMapPointer.top) {
+              const { x, y } = opt.pointer
+              const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y })
+              await this.callFun('heatmapAddCb', { coordX, coordY, value: this.heatmapDrawValue })
+            }
+        }
+      }
     },
     handleCanvasScalingForHeatmap (opt) {
       if (opt.target === this.svgMap) {
         this.renderHeatmap()
       }
     },
-    handleCanvasMovingForHeatmap (opt) {
+    async handleCanvasMouseMoveForHeatmap (opt) {
       if (opt.target === this.svgMap) {
+        if (this.heatmapMoveDrawable && this.heatmap && opt.pointer) {
+          const { x, y } = opt.pointer
+          const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y })
+          await this.callFun('heatmapAddCb', { coordX, coordY, value: this.heatmapDrawValue })
+        }
         this.renderHeatmap()
       }
     },

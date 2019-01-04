@@ -418,12 +418,7 @@ export default {
       // 备份点击状态下的位置，用于判断move状态还是click状态
       this.mouseDownSvgMapPointer = { left: this.svgMap.left, top: this.svgMap.top }
     },
-    async handleSvgMapMouseMove (opt) {
-      // const { x, y } = opt.pointer
-      // if (this.heatmap) {
-      //   const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y })
-      //   await this.callFun('heatmapAddCb', { coordX, coordY })
-      // }
+    handleSvgMapMouseMove (opt) {
     },
     handleSvgMapScaling (opt) {
       this.updatePointLine()
