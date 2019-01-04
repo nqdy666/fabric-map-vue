@@ -24,7 +24,7 @@ export default {
     },
     heatmapClickDrawable: {
       type: Boolean,
-      default: true
+      default: false
     },
     heatmapMoveDrawable: {
       type: Boolean,
