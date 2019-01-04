@@ -18,7 +18,8 @@ export default class FabricResizableCavas extends fabric.Canvas {
     }
   }
   destroy (...arg) {
-    super.destroy(...arg)
+    console.log(super.destroy)
+    // super.destroy(...arg)
     this.parentEl && removeResizeListener(this.parentEl)
   }
 }

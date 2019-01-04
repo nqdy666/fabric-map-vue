@@ -30,7 +30,6 @@
   </div>
 </template>
 <script>
-import h337 from 'heatmap.js'
 import './fabric-map-vue.scss'
 import FabricReizeableCavas from './fabric-resizeable-canvas'
 import FabricArrowLine from './fabric-arrow-line'
@@ -111,12 +110,6 @@ export default {
     pointActiveSvgImageUrl: {
       type: String,
       default: POINT_ICON[POINT_TYPE.ACTIVE]
-    },
-    heatmapData: {
-      type: Array,
-      default () {
-        return []
-      }
     }
   },
   data () {
@@ -152,7 +145,7 @@ export default {
     },
     mPointList () {
       return this.pointList
-    },
+    }
   },
   watch: {
     svgMapUrl (val) {
@@ -167,9 +160,6 @@ export default {
     pointList () {
       this.renderPoints()
       this.canvas && this.canvas.requestRenderAll()
-    },
-    heatmapData () {
-      this.renderHeatmap()
     },
     mapWidth () {
       this.clearLine()
@@ -189,7 +179,7 @@ export default {
     backgroundColor (val) {
       this.canvas && (this.canvas.backgroundColor = val)
       this.canvas && this.canvas.requestRenderAll()
-    },
+    }
   },
   async mounted () {
     this.draw()
@@ -201,7 +191,7 @@ export default {
     async callFun(name, ...arg) {
       this.$emit(name.replace('Cb', ''), ...arg)
       if (this[name] && this[name].then) await this[name](...arg)
-      else this[name] && this[name](...arg)
+      else this[name](...arg)
     },
     // 保存点坐标信息
     async savePointInfo (data = {}) {
@@ -229,11 +219,6 @@ export default {
       canvas.on('object:scaling', this.handleCanvasScaling)
       canvas.on('object:moving', this.handleCanvasMoving)
       canvas.on('mouse:up', this.handleCanvasMouseUp)
-
-      this.heatmap = h337.create({
-        container: this.$el.querySelector('.canvas-container')
-      })
-      this.renderHeatmap()
     },
     // 清除点信息
     clearPoints () {
@@ -264,10 +249,11 @@ export default {
       this.clearPoints()
       // 初始化从接口来的点
       for (const pointInfo of this.mPointList) {
-        const { coordX, coordY } = pointInfo
-        const { x, y } = this.svgRateInfo2Point({ coordX, coordY })
+        const left = Math.round(pointInfo.coordX * this.svgMap.getScaledWidth() + this.svgMap.left)
+        const top = Math.round(pointInfo.coordY * this.svgMap.getScaledHeight() + this.svgMap.top)
+        
         // 坐标点转换
-        const newPoint = this.canvas2SvgMapPoint({ x, y })
+        const newPoint = this.canvas2SvgMapPoint({ x: left, y: top })
         const pointImage = await this.makePointImageObj({
           mPointInfo: pointInfo,
           left:  newPoint.x,
@@ -428,12 +414,7 @@ export default {
       // 备份点击状态下的位置，用于判断move状态还是click状态
       this.mouseDownSvgMapPointer = { left: this.svgMap.left, top: this.svgMap.top }
     },
-    async handleSvgMapMouseMove (opt) {
-      const { x, y } = opt.pointer
-      if (this.heatmap) {
-        const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y })
-        await this.callFun('heatmapAddCb', { coordX, coordY })
-      }
+    handleSvgMapMouseMove (opt) {
     },
     handleSvgMapScaling (opt) {
       this.updatePointLine()
@@ -618,18 +599,6 @@ export default {
         this.removeSelectPoint()
       }
     },
-    // 获取相对于svg图的比例坐标
-    point2svgRelativeRateInfo ({ x, y } = {}) {
-      const coordY = (y - this.svgMap.top) / this.svgMap.getScaledHeight()
-      const coordX = (x - this.svgMap.left) / this.svgMap.getScaledWidth()
-      return { coordX, coordY }
-    },
-    // svg图的比例坐标转换成canvas坐标点
-    svgRateInfo2Point ({ coordX, coordY } = {}) {
-      const x = Math.round(coordX * this.svgMap.getScaledWidth() + this.svgMap.left)
-      const y = Math.round(coordY * this.svgMap.getScaledHeight() + this.svgMap.top)
-      return { x, y }
-    },
     // 保存节点
     async savePoint () {
       const point = this.activePoint || this.selectedPoint
@@ -640,7 +609,8 @@ export default {
         left = newPoint.x
         top = newPoint.y
       }
-      const { coordX, coordY } = this.point2svgRelativeRateInfo({ x: left, y: top })
+      const coordY = (top - this.svgMap.top) / this.svgMap.getScaledHeight()
+      const coordX = (left - this.svgMap.left) / this.svgMap.getScaledWidth()
       const { mPointInfo = {} } = point
       const res = await this.savePointInfo({
         ...mPointInfo,
@@ -726,20 +696,6 @@ export default {
     svgMap2CanvasPoint ({ x, y } = {}) {
       let matrix = this.svgMap.calcTransformMatrix()
       return fabric.util.transformPoint({ x, y }, matrix)
-    },
-    renderHeatmap () {
-      const data = this.heatmapData.map(item => {
-        const { coordX = 0, coordY = 0, ...rest } = item
-        const { x, y } = this.svgRateInfo2Point({ coordX, coordY })
-        return {
-          x, y,
-          ...rest
-        }
-      })
-      this.heatmap && this.heatmap.setData({
-        max: 5,
-        data
-      })
     }
   }
 }
