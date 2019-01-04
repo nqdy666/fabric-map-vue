@@ -429,17 +429,20 @@ export default {
       this.mouseDownSvgMapPointer = { left: this.svgMap.left, top: this.svgMap.top }
     },
     async handleSvgMapMouseMove (opt) {
-      const { x, y } = opt.pointer
-      if (this.heatmap) {
-        const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y })
-        await this.callFun('heatmapAddCb', { coordX, coordY })
-      }
+      // const { x, y } = opt.pointer
+      // if (this.heatmap) {
+      //   const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y })
+      //   await this.callFun('heatmapAddCb', { coordX, coordY })
+      // }
+      this.renderHeatmap()
     },
     handleSvgMapScaling (opt) {
       this.updatePointLine()
+      this.renderHeatmap()
     },
     handleSvgMapScaled () {
       this.updatePointLine()
+      this.renderHeatmap()
     },
     initPointEvents (point) {
       const self = this
@@ -595,6 +598,7 @@ export default {
       const { scaleX } = this.svgMap
       this.svgMap.scale(Number(scaleX) + DEFAULT_ZOOM_STEP)
       this.canvas.fire('object:scaling', { target: this.svgMap })
+      this.svgMap.fire('scaling')
       this.updatePointLine()
       this.canvas.requestRenderAll()
     },
@@ -605,6 +609,7 @@ export default {
       this.svgMap.scale(Math.max(Number(scaleX) - DEFAULT_ZOOM_STEP, 0.1))
       this.canvas.requestRenderAll()
       this.canvas.fire('object:scaling', { target: this.svgMap })
+      this.svgMap.fire('scaling')
       this.updatePointLine()
     },
     handleAddPointBtnClick () {
