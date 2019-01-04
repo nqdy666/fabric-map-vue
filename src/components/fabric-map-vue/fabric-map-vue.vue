@@ -323,6 +323,8 @@ export default {
       this.svgMap.top = Math.floor(clientHeight / 2 - this.svgMap.getScaledHeight() / 2)
       this.svgMap.left = Math.floor(clientWidth / 2 - this.svgMap.getScaledWidth() / 2)
       this.svgMap.setCoords()
+      this.canvas.fire('object:scaling', { target: this.svgMap })
+      this.svgMap.fire('scaling')
     },
     async loadImage (imageUrl, options) {
       return new Promise((resolve, reject) => {
