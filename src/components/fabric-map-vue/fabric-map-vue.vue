@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import h337 from 'heatmap.js'
+import fabricHeatmapMixin from './fabric-heatmap'
 import './fabric-map-vue.scss'
 import FabricReizeableCavas from './fabric-resizeable-canvas'
 import FabricArrowLine from './fabric-arrow-line'
@@ -53,6 +53,7 @@ const POINT_ICON = {
 }
 
 export default {
+  mixins: [fabricHeatmapMixin],
   components: {
     DirBtn
   },
@@ -111,12 +112,6 @@ export default {
     pointActiveSvgImageUrl: {
       type: String,
       default: POINT_ICON[POINT_TYPE.ACTIVE]
-    },
-    heatmapData: {
-      type: Array,
-      default () {
-        return []
-      }
     }
   },
   data () {
@@ -168,9 +163,6 @@ export default {
       this.renderPoints()
       this.canvas && this.canvas.requestRenderAll()
     },
-    heatmapData () {
-      this.renderHeatmap()
-    },
     mapWidth () {
       this.clearLine()
       this.updatePointLine()
@@ -192,7 +184,8 @@ export default {
     },
   },
   async mounted () {
-    this.draw()
+    await this.draw()
+    this.initHeatMap()
   },
   beforeDestroy () {
     this.canvas && this.canvas.destroy()
@@ -229,11 +222,6 @@ export default {
       canvas.on('object:scaling', this.handleCanvasScaling)
       canvas.on('object:moving', this.handleCanvasMoving)
       canvas.on('mouse:up', this.handleCanvasMouseUp)
-
-      this.heatmap = h337.create({
-        container: this.$el.querySelector('.canvas-container')
-      })
-      this.renderHeatmap()
     },
     // 清除点信息
     clearPoints () {
@@ -734,20 +722,6 @@ export default {
       let matrix = this.svgMap.calcTransformMatrix()
       return fabric.util.transformPoint({ x, y }, matrix)
     },
-    renderHeatmap () {
-      const data = this.heatmapData.map(item => {
-        const { coordX = 0, coordY = 0, ...rest } = item
-        const { x, y } = this.svgRateInfo2Point({ coordX, coordY })
-        return {
-          x, y,
-          ...rest
-        }
-      })
-      this.heatmap && this.heatmap.setData({
-        max: 5,
-        data
-      })
-    }
   }
 }
 </script>
