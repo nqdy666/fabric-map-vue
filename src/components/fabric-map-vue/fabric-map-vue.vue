@@ -397,16 +397,19 @@ export default {
         // svg scale, 缺点无法沿着鼠标点缩放，只能沿着originX,originY缩放
         // let scale = Number(this.svgMap.scaleX)
         // scale = scale + -(delta / 1000)
-        // if (scale > 20) scale = 20
+        // if (scale > 5) scale = 5
         // if (scale < 0.1) scale = 0.1
         // this.svgMap.scale(scale)
         // svg scale end
+
         // canvas zoom, 支持沿着中心点缩放
-        let zoom = this.canvas.getZoom();
-        zoom = zoom + delta / 1000;
-        if (zoom > 20) zoom = 20;
-        if (zoom < 0.1) zoom = 0.1;
-        this.canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom)
+        if (opt.target === this.svgMap) {
+          let zoom = this.canvas.getZoom()
+          zoom = zoom +  -(delta / 1000)
+          if (zoom > 5) zoom = 5
+          if (zoom < 0.1) zoom = 0.1
+          this.canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom)
+        }
         // canvas zoom end
         this.svgMap.fire('scaling')
         this.canvas.fire('object:scaling', { target: this.svgMap })
