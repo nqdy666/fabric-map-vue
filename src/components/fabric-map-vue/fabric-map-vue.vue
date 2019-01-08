@@ -390,6 +390,7 @@ export default {
         this.selectedPoint = null
         this.clearLine()
       }
+      this.rememberRelationShip()
     },
     handleCanvasMousewheel (opt) {
       if (this.svgMap) {
