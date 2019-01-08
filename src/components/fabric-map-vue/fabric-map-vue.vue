@@ -95,7 +95,7 @@ export default {
     },
     movingMinion: {
       type: Boolean,
-      default: false
+      default: true
     },
     scalingMinion: {
       type: Boolean,
@@ -428,7 +428,7 @@ export default {
         // 只有在进入到可点击状态才能允许放入位置点
         if (!this.addTipInfoShow) return
         this.addTipInfoShow = false
-        const { x, y } = opt.pointer
+        const { x, y } = this.invertPointer(opt.pointer)
         const pointImage = await this.makePointImageObj({
           left: x,
           top: y
@@ -631,16 +631,35 @@ export default {
         this.removeSelectPoint()
       }
     },
+    // 当canvas画布本身进行了变化，事件的点坐标也需要进行变换
+    invertPointer ({ x, y } = {}) {
+      const mInverse = fabric.util.invertTransform(this.canvas.viewportTransform)
+      const newPoint = fabric.util.transformPoint({ x, y }, mInverse)
+      return newPoint
+    },
     // 获取相对于svg图的比例坐标
-    point2svgRelativeRateInfo ({ x, y } = {}) {
+    point2svgRelativeRateInfo ({ x, y } = {}, absoulte) {
+      if (absoulte) {
+         // canvas viewport发生变换，也需要反向计算出基于canvas变换后新的位置
+        const mInverse = fabric.util.invertTransform(this.canvas.viewportTransform)
+        const newPoint = fabric.util.transformPoint({ x, y }, mInverse)
+        x = newPoint.x
+        y = newPoint.y
+      }
       const coordY = (y - this.svgMap.top) / this.svgMap.getScaledHeight()
       const coordX = (x - this.svgMap.left) / this.svgMap.getScaledWidth()
       return { coordX, coordY }
     },
     // svg图的比例坐标转换成canvas坐标点
-    svgRateInfo2Point ({ coordX, coordY } = {}) {
-      const x = Math.round(coordX * this.svgMap.getScaledWidth() + this.svgMap.left)
-      const y = Math.round(coordY * this.svgMap.getScaledHeight() + this.svgMap.top)
+    svgRateInfo2Point ({ coordX, coordY } = {}, absoulte) {
+      let x = Math.round(coordX * this.svgMap.getScaledWidth() + this.svgMap.left)
+      let y = Math.round(coordY * this.svgMap.getScaledHeight() + this.svgMap.top)
+      // canvas viewport发生变换，也需要计算出基于canvas变换后新的位置
+      if (absoulte) {
+        const newPoint = fabric.util.transformPoint({ x, y }, this.canvas.viewportTransform)
+        x = Math.floor(newPoint.x)
+        y = Math.floor(newPoint.y)
+      }
       return { x, y }
     },
     // 保存节点

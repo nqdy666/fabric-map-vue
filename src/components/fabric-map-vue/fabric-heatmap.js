@@ -78,17 +78,13 @@ export default {
       this.callAdd({ x, y })
     }, 15),
     callAdd ({ x, y } = {}) {
-      const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y })
+      const { coordX, coordY } = this.point2svgRelativeRateInfo({ x, y }, true)
       this.callFun('heatmapAddCb', { coordX, coordY, value: this.heatmapDrawValue })
     },
     renderHeatmap () {
       const data = this.heatmapData.map(item => {
         const { coordX = 0, coordY = 0, ...rest } = item
-        let { x, y } = this.svgRateInfo2Point({ coordX, coordY })
-        // canvas viewport发生变换，也需要计算出基于canvas变换后新的位置
-        const newPoint = fabric.util.transformPoint({ x, y }, this.canvas.viewportTransform)
-        x = Math.floor(newPoint.x)
-        y = Math.floor(newPoint.y)
+        let { x, y } = this.svgRateInfo2Point({ coordX, coordY }, true)
         return {
           x, y,
           ...rest
