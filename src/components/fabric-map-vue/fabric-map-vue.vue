@@ -95,11 +95,11 @@ export default {
     },
     movingMinion: {
       type: Boolean,
-      default: true
+      default: false
     },
     scalingMinion: {
       type: Boolean,
-      default: false
+      default: true
     },
     backgroundColor: {
       type: String,
@@ -443,6 +443,9 @@ export default {
     handleSvgMapMouseDown (opt) {
       // 备份点击状态下的位置，用于判断move状态还是click状态
       this.mouseDownSvgMapPointer = { left: this.svgMap.left, top: this.svgMap.top }
+      if (this.activePoint) {
+        this.updatePointLine()
+      }
     },
     handleSvgMapMouseMove (opt) {
     },
