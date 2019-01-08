@@ -1,5 +1,6 @@
 import h337 from 'heatmap.js'
 import debounce from 'lodash.debounce'
+import FabricArrowLine from './fabric-arrow-line';
 
 export default {
   props: {
@@ -25,7 +26,7 @@ export default {
     },
     heatmapClickDrawable: {
       type: Boolean,
-      default: true
+      default: false
     },
     heatmapMoveDrawable: {
       type: Boolean,

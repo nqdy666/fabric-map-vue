@@ -222,6 +222,7 @@ export default {
       canvas.on('object:scaling', this.handleCanvasScaling)
       canvas.on('object:moving', this.handleCanvasMoving)
       canvas.on('mouse:up', this.handleCanvasMouseUp)
+      canvas.on('mouse:wheel', this.handleCanvasMousewheel)
     },
     // 清除点信息
     clearPoints () {
@@ -388,6 +389,19 @@ export default {
       if (this.selectedPoint && !opt.target) {
         this.selectedPoint = null
         this.clearLine()
+      }
+    },
+    handleCanvasMousewheel (opt) {
+      if (this.svgMap) {
+         const delta = opt.e.deltaY;
+        let scale = Number(this.svgMap.scaleX)
+        scale = scale + -(delta / 1000)
+        if (scale > 20) scale = 20
+        if (scale < 0.1) scale = 0.1
+        this.svgMap.scale(scale)
+        this.svgMap.fire('scaling')
+        this.canvas.fire('object:scaling', { target: this.svgMap })
+        this.canvas.requestRenderAll()
       }
     },
     async handleSvgMapMouseUp (opt) {
