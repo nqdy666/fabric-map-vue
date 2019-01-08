@@ -99,7 +99,7 @@ export default {
     },
     scalingMinion: {
       type: Boolean,
-      default: true
+      default: false
     },
     backgroundColor: {
       type: String,
