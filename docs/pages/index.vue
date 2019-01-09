@@ -20,8 +20,8 @@ export default {
     return {
       svgMapUrl: 'https://qiniu.qjzd.net/cf.svg',
       pointList: [
-        { id: 1, coordX: 0.30141547, coordY: 0.55013478, type: 2 },
-        { id: 2, coordX: 0.6944213, coordY: 0.55121297 },
+        { id: 1, coordX: 0.30141547, coordY: 0.55013478, type: 'img', url: 'http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw' },
+        { id: 2, coordX: 0.6944213, coordY: 0.55121297, type: 'text', text: '餐饮  店', fontSize: 16, angle: 10, underline: true },
         {coordX: 0.0016652789342214821, coordY: 0.5929919137466307, id: 3}
       ],
       mapUnit: 'm',

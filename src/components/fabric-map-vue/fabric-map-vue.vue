@@ -30,26 +30,22 @@
   </div>
 </template>
 <script>
+import { POINT_TYPE_ENUM } from './constants'
 import fabricHeatmapMixin from './fabric-heatmap'
 import fabricZoom from './fabric-zoom'
 import fabricPointLine from './fabric-point-line'
 import './fabric-map-vue.scss'
 import FabricReizeableCavas from './fabric-resizeable-canvas'
-import FabricArrowLine from './fabric-arrow-line'
 import DirBtn from './dir-btn'
 
 const OBJ_POINT = 'point'
 
-// 点的类型
-const POINT_TYPE = {
-  NORMAL: 1,
-  ACTIVE: 2,
-}
-
-// 点的图标
-const POINT_ICON = {
-  [POINT_TYPE.NORMAL]: 'http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw',
-  [POINT_TYPE.ACTIVE]: 'http://vve.qiniu.qjzd.net/Fn4PgPav04qGpPzpIDw_1qyK9F5Y'
+// 过滤key
+function filterObjByKeys(arrKeys = [], obj = {}) {
+  return arrKeys.reduce((val, key) => {
+    if (obj[key] !== undefined) val[key] = obj[key]
+    return val
+  }, {})
 }
 
 export default {
@@ -93,14 +89,6 @@ export default {
       type: String,
       default: '#17171A'
     },
-    pointSvgImageUrl: {
-      type: String,
-      default: POINT_ICON[POINT_TYPE.NORMAL]
-    },
-    pointActiveSvgImageUrl: {
-      type: String,
-      default: POINT_ICON[POINT_TYPE.ACTIVE]
-    }
   },
   data () {
     return {
@@ -141,12 +129,6 @@ export default {
     svgMapUrl (val) {
       this.renderSvgMap(val)
     },
-    pointSvgImageUrl () {
-      this.renderPoints()
-    },
-    pointActiveSvgImageUrl () {
-      this.renderPoints()
-    },
     pointList () {
       this.renderPoints()
       this.canvas && this.canvas.requestRenderAll()
@@ -158,6 +140,7 @@ export default {
   },
   async mounted () {
     await this.draw()
+    this.initPointLine()
     this.initZoom()
     this.initHeatMap()
   },
@@ -176,11 +159,6 @@ export default {
       return data
     },
     async draw () {
-      this.lineX = new FabricArrowLine([0, 0, 0, 0])
-      this.lineY = new FabricArrowLine([0, 0, 0, 0])
-      this.linxRightX = new FabricArrowLine([0, 0, 0, 0])
-      this.linxRightY = new FabricArrowLine([0, 0, 0, 0])
-
       var canvas = new FabricReizeableCavas(this.$el.querySelector("#map-canvas"), { parentEl: this.$el.querySelector('.fm-map-wrapper') })
       canvas.backgroundColor = this.backgroundColor
       canvas.selection = false
@@ -188,10 +166,6 @@ export default {
 
       await this.renderSvgMap(this.svgMapUrl)
 
-      canvas.add(this.lineX)
-      canvas.add(this.lineY)
-      canvas.add(this.linxRightX)
-      canvas.add(this.linxRightY)
       canvas.on('mouse:down', this.handleCanvasMouseDown)
       canvas.on('object:scaling', this.handleCanvasScaling)
       canvas.on('object:moving', this.handleCanvasMoving)
@@ -207,19 +181,35 @@ export default {
     },
     // 创建point image对象
     async makePointImageObj (data = {}) {
-      const { mPointInfo = {}, ...options } = data 
-      const img = await this.loadImage(mPointInfo.type === POINT_TYPE.ACTIVE ? this.pointActiveSvgImageUrl : this.pointSvgImageUrl)
-      img.originX = 'center'
-      img.originY = 'bottom'
-      img.hasControls = false
-      img.hasBorders = false
-      img.lockRotation = true
-      img.mPointInfo = Object.keys(mPointInfo).length > 0 ? mPointInfo : undefined
-      img.mType = OBJ_POINT
-      img.set(options)
-      img.setCoords()
-      this.initPointEvents(img)
-      return img
+      const { mPointInfo = {}, ...options } = data
+      let point
+      if (mPointInfo.type === POINT_TYPE_ENUM.IMG) {
+        point = await this.loadImage(mPointInfo.url, filterObjByKeys(
+          ["angle","stroke","strokeWidth","fill","backgroundColor","opacity"], mPointInfo))
+      } else if (mPointInfo.type === POINT_TYPE_ENUM.TEXT) {
+        point = new fabric.IText(mPointInfo.text, filterObjByKeys(
+          [
+            "angle","stroke","strokeWidth","fill",
+            "fontFamily","fontSize","fontWeight","fontStyle",
+            "underline","overline","linethrough","deltaY",
+            "textBackgroundColor", "backgroundColor","opacity"
+          ],
+          mPointInfo
+        ))
+      } else {
+        return // 如果不是要求的类型，不显示
+      }
+      point.originX = 'center'
+      point.originY = 'bottom'
+      point.hasControls = false
+      point.hasBorders = false
+      point.lockRotation = true
+      point.mPointInfo = Object.keys(mPointInfo).length > 0 ? mPointInfo : undefined
+      point.mType = OBJ_POINT
+      point.set(options)
+      point.setCoords()
+      this.initPointEvents(point)
+      return point
     },
     // 渲染点的信息
     async renderPoints () {
@@ -235,8 +225,10 @@ export default {
           left:  newPoint.x,
           top: newPoint.y
         })
-        this.svgMap.add(pointImage)
-        this.canvas.requestRenderAll()
+        if (pointImage) {
+          this.svgMap.add(pointImage)
+          this.canvas.requestRenderAll()
+        }
       }
     },
     // 渲染svgmap，如果已经初始化，就销毁，重新初始化
@@ -288,11 +280,22 @@ export default {
       this.canvas.fire('object:scaling', { target: this.svgMap })
       this.svgMap.fire('scaling')
     },
+    // 支持缓存
     async loadImage (imageUrl, options) {
+      if (!this.imagePointCached) this.imagePointCached = {}
       return new Promise((resolve, reject) => {
-        fabric.Image.fromURL(imageUrl, img => {
-          resolve(img)
-        }, options)
+        if (this.imagePointCached[imageUrl]) {
+          this.imagePointCached[imageUrl].clone(cloned => {
+            resolve(cloned)
+          })
+        } else {
+          fabric.Image.fromURL(imageUrl, img => {
+            this.imagePointCached[imageUrl] = img
+            this.imagePointCached[imageUrl].clone(cloned => {
+              resolve(cloned)
+            })
+          }, options)
+        }
       })
     },
     limitActivePointPosition () {
@@ -383,11 +386,13 @@ export default {
           left: x,
           top: y
         })
-        this.canvas.add(pointImage)
-        this.canvas.bringToFront(pointImage)
-        this.selectedPoint = null
-        this.activePoint = pointImage
-        this.updatePointLine() // 强制更新线条，并且接口第一次点击偶尔会不显示图标的问题
+        if (pointImage) {
+          this.canvas.add(pointImage)
+          this.canvas.bringToFront(pointImage)
+          this.selectedPoint = null
+          this.activePoint = pointImage
+          this.updatePointLine() // 强制更新线条，并且接口第一次点击偶尔会不显示图标的问题
+        }
       }
     },
     handleSvgMapMouseDown (opt) {
