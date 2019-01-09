@@ -4,7 +4,7 @@
       <label>文本内容:</label><input v-model.trim="text" placeholder="例如：text"/>
     </div>
     <div class="fm-form-item">
-      <label>字体大小:</label><input v-model.trim="fontSize" placeholder="例如：12px"/>
+      <label>字体大小:</label><input v-model.number="fontSize" placeholder="例如：12"/>
     </div>
     <div class="fm-btn-wrapper">
       <button class="fm-btn" @click.prevent="handleSubmitBtnClick">确定</button>
@@ -16,7 +16,7 @@ export default {
   data () {
     return {
       text: '',
-      fontSize: ''
+      fontSize: 12
     }
   },
   methods: {

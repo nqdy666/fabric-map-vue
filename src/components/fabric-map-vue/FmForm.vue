@@ -1,6 +1,6 @@
 <template>
   <div>
-    <fm-dialog :visible.sync="visible">
+    <fm-dialog :visible.sync="visible" @close="handleCloseBtnClick">
       <p>选择类型</p>
       <div class="fm-type-select-wrapper">
         <div class="fm-type" v-for="item of TYPELIST" :key="item.type"  @click="handleItemClick(item)">
@@ -14,18 +14,14 @@
   </div>
 </template>
 <script>
+import { POINT_TYPE_ENUM } from './constants'
 import FmDialog from './FmDialog'
 import FmTextForm from './FmTextForm'
 import FmImgForm from './FmImgForm'
 
-const TYPE_ENUM = {
-  TEXT: 'text',
-  IMG: 'image'
-}
-
 const TYPELIST = [
-  { type: TYPE_ENUM.TEXT, text: '文本', component: FmTextForm },
-  { type: TYPE_ENUM.IMG,  text: '图片', component: FmImgForm }
+  { type: POINT_TYPE_ENUM.TEXT, text: '文本', component: FmTextForm },
+  { type: POINT_TYPE_ENUM.IMG,  text: '图片', component: FmImgForm }
 ]
 
 export default {
@@ -36,7 +32,7 @@ export default {
   data () {
     return {
       TYPELIST,
-      TYPE_ENUM,
+      POINT_TYPE_ENUM,
       visible: true,
       formVisible: false,
       fmType: {},
@@ -52,14 +48,13 @@ export default {
       this.visible = true
     },
     handleFormSubmit (data) {
-      console.log({
-        type: this.fmType.type,
-        ...data,
-      })
       this.$emit('submit', {
         type: this.fmType.type,
         ...data,
       })
+    },
+    handleCloseBtnClick () {
+      this.$emit('close')
     }
   }
 }

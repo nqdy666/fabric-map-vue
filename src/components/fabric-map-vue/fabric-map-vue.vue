@@ -8,7 +8,7 @@
       <i @click="handleZoomOutBtnClick" class="fm-icon-plus"></i>
       <i @click="handleZoomInBtnClick" class="fm-icon-minus"></i>
     </div>
-    <!-- 添加基站按钮 -->
+    <!-- 添加按钮 -->
     <div class="fm-add-btn-wrapper" v-show="showAddPointBtn">
       <i class="fm-icon-plus-circle" @click="handleAddPointBtnClick"></i>
     </div>
@@ -27,6 +27,7 @@
     <div class="fm-reload-wrapper">
       <i class="fm-icon-reload" @click="handleReloadBtnClick"></i>
     </div>
+    <fm-form v-if="formShow" @close="formShow = false" @submit="handleFormSubmit"></fm-form>
   </div>
 </template>
 <script>
@@ -37,7 +38,7 @@ import fabricPointLine from './fabric-point-line'
 import './fabric-map-vue.scss'
 import FabricReizeableCavas from './fabric-resizeable-canvas'
 import DirBtn from './dir-btn'
-
+import FmForm from './FmForm'
 const OBJ_POINT = 'point'
 
 // 过滤key
@@ -51,7 +52,8 @@ function filterObjByKeys(arrKeys = [], obj = {}) {
 export default {
   mixins: [fabricHeatmapMixin, fabricZoom, fabricPointLine],
   components: {
-    DirBtn
+    DirBtn,
+    FmForm
   },
   props: {
     svgMapUrl: {
@@ -94,7 +96,9 @@ export default {
     return {
       addTipInfoShow: false,
       activePoint: undefined,
-      selectedPoint: undefined
+      selectedPoint: undefined,
+      formShow: false,
+      readyPointInfo: undefined,
     }
   },
   computed: {
@@ -113,7 +117,7 @@ export default {
       return point
     },
     showAddPointBtn () {
-      return !(this.selectedPoint || this.activePoint) && !this.addTipInfoShow
+      return !(this.selectedPoint || this.activePoint) && !this.addTipInfoShow && !this.formShow
     },
     showDirBtn () {
       return !!this.activePoint
@@ -124,6 +128,9 @@ export default {
     mPointList () {
       return this.pointList
     },
+    readyAddPoint () {
+      return this.readyPointInfo
+    }
   },
   watch: {
     svgMapUrl (val) {
@@ -148,6 +155,11 @@ export default {
     this.canvas && this.canvas.destroy()
   },
   methods: {
+    handleFormSubmit (val) {
+      this.readyPointInfo = val
+      this.addTipInfoShow = true
+      this.formShow = false
+    },
     async callFun(name, ...arg) {
       this.$emit(name.replace('Cb', ''), ...arg)
       if (this[name] && this[name].then) await this[name](...arg)
@@ -379,13 +391,15 @@ export default {
           this.clearLine()
         }
         // 只有在进入到可点击状态才能允许放入位置点
-        if (!this.addTipInfoShow) return
+        if (!this.addTipInfoShow && !this.readyPointInfo) return
         this.addTipInfoShow = false
         const { x, y } = this.invertPointer(opt.pointer)
         const pointImage = await this.makePointImageObj({
           left: x,
-          top: y
+          top: y,
+          mPointInfo: this.readyPointInfo
         })
+        this.readyPointInfo = null
         if (pointImage) {
           this.canvas.add(pointImage)
           this.canvas.bringToFront(pointImage)
@@ -452,7 +466,7 @@ export default {
       }
     },
     handleAddPointBtnClick () {
-      this.addTipInfoShow = true
+      this.formShow = true
     },
     async handleDelBtnClick () {
       const point = this.activePoint || this.selectedPoint
