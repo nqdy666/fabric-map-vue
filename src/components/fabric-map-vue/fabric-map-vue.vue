@@ -221,7 +221,7 @@ export default {
         return // 如果不是要求的类型，不显示
       }
       point.originX = 'center'
-      point.originY = 'bottom'
+      point.originY = 'center'
       point.hasControls = false
       point.hasBorders = false
       point.lockRotation = true
@@ -331,8 +331,18 @@ export default {
       var rightBound = leftBound + boundingBox.getScaledWidth();
       const movingBoxWidth = movingBox.getScaledWidth()
       const movingBoxHeight = movingBox.getScaledHeight()
-      movingBox.left = (Math.min(Math.max(movingBox.left, leftBound + movingBoxWidth / 2), rightBound - movingBoxHeight / 2));
-      movingBox.top = (Math.min(Math.max(movingBox.top, topBound + movingBoxHeight), bottomBound));
+      if (movingBox.originX === 'center') {
+        movingBox.left = (Math.min(Math.max(movingBox.left, leftBound + movingBoxWidth / 2), rightBound - movingBoxHeight / 2))
+      } else if (movingBox.originX === 'left') {
+        movingBox.left = (Math.min(Math.max(movingBox.left, leftBound), rightBound - movingBoxHeight))
+      }
+      if (movingBox.originY === 'bottom') {
+        movingBox.top = (Math.min(Math.max(movingBox.top, topBound + movingBoxHeight), bottomBound))
+      } else if (movingBox.originY === 'top') {
+        movingBox.top = (Math.min(Math.max(movingBox.top, topBound), bottomBound - movingBoxHeight))
+      } else if (movingBox.originY === 'center') {
+        movingBox.top = (Math.min(Math.max(movingBox.top, topBound + movingBoxHeight / 2), bottomBound - movingBoxHeight / 2))
+      }
       movingBox.setCoords()
       this.canvas.requestRenderAll()
     },
