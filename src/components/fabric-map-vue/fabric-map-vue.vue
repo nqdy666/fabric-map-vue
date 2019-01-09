@@ -14,7 +14,7 @@
     </div>
     <!-- 扫码删除按钮 -->
     <div class="fm-op-btn-wrapper" v-show="showOpBtnWrapper">
-      <i class="fm-icon-delete" @click="handleEditBtnClick" v-show="showEditBtn"></i>
+      <i class="fm-icon-edit" @click="handleEditBtnClick" v-show="showEditBtn"></i>
       <i class="fm-icon-delete" @click="handleDelBtnClick" v-show="showDeleteBtn"></i>
       <i class="fm-icon-lock" v-show="lockBtn" @click="handleLockBtnClick" v-if="showLockBtn"></i>
       <i class="fm-icon-unlock" v-show="!lockBtn" @click="handleUnLockBtnClick" v-if="showLockBtn"></i>
