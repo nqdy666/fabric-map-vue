@@ -48,8 +48,8 @@ export default {
   }
   .fm-dialog-content {
     position: relative;
-    background: #845ec2;
-    color: #fff;
+    background: white;
+    color: #000;
     border-radius: .2em;
   }
   .fm-dialog-close-btn {
