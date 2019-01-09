@@ -1,6 +1,6 @@
 import h337 from 'heatmap.js'
 import debounce from 'lodash.debounce'
-import FabricArrowLine from './fabric-arrow-line';
+import { addResizeListener, removeResizeListener } from '../../utils/detect-element-resize'
 
 export default {
   props: {
@@ -40,13 +40,23 @@ export default {
   methods: {
     // 在组件挂载的时候会被调用
     initHeatMap () {
+      this.$heatmapEl = this.$el.querySelector('.canvas-container')
       this.heatmap = h337.create({
-        container: this.$el.querySelector('.canvas-container')
+        container: this.$heatmapEl
       })
+      addResizeListener(this.$heatmapEl, this._handleHeatmapResize)
       this.renderHeatmap()
       this.canvas.on('mouse:up', this.handleCanvasMouseUpForHeatmap)
       this.canvas.on('object:scaling', this.handleCanvasScalingForHeatmap)
       this.canvas.on('mouse:move', this.handleCanvasMouseMoveForHeatmap)
+    },
+    _handleHeatmapResize () {
+      if (!this.$heatmapEl) return
+      this.heatmap.configure({
+        ...this.heatmapOptions,
+        width: this.$heatmapEl.clientWidth,
+        height: this.$heatmapEl.clientHeight
+      })
     },
     handleCanvasMouseUpForHeatmap (opt) {
       if (opt.target === this.svgMap) {
