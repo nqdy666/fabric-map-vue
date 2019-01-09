@@ -1,6 +1,5 @@
 import FabricArrowLine from './fabric-arrow-line'
-
-const OBJ_POINT = 'point'
+import { OBJ_POINT } from './constants' 
 
 export default {
   props: {

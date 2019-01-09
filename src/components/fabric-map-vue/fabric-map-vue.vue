@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { POINT_TYPE_ENUM } from './constants'
+import { POINT_TYPE_ENUM, OBJ_POINT } from './constants'
 import fabricHeatmapMixin from './fabric-heatmap'
 import fabricZoom from './fabric-zoom'
 import fabricPointLine from './fabric-point-line'
@@ -40,7 +40,6 @@ import './fabric-map-vue.scss'
 import FabricReizeableCavas from './fabric-resizeable-canvas'
 import DirBtn from './dir-btn'
 import FmForm from './FmForm'
-const OBJ_POINT = 'point'
 
 // 过滤key
 function filterObjByKeys(arrKeys = [], obj = {}) {
