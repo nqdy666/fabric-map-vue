@@ -345,6 +345,7 @@ export default {
       }
     },
     handleCanvasMouseDown () {
+      this.canvas.discardActiveObject()
       this.rememberRelationShip()
     },
     handleCanvasScaling (e) {

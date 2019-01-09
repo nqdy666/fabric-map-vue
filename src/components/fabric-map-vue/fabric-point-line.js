@@ -15,6 +15,10 @@ export default {
     mapUnit: {
       type: String,
       default: 'm'
+    },
+    showLine: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -31,6 +35,10 @@ export default {
       this.canvas.add(this.linxRightY)
     },
     updateLine (point, isPointInGroup) {
+      if (!this.showLine) {
+        return this.clearLine()
+      }
+
       const svgMap = this.svgMap
       const self = this
       let { left, top } = svgMap
