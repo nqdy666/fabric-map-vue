@@ -29,6 +29,7 @@ export default {
   methods: {
     handleCloseBtnClick () {
       this.$emit('update:visible', false)
+      this.$emit('close')
     }
   }
 }
