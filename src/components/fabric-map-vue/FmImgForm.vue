@@ -1,7 +1,7 @@
 <template>
   <form class="fm-form">
     <div class="fm-form-item">
-      <label>图片地址:</label><input v-model.trim="url" placeholder="例如：http://www.baidu.com"/>
+      <label>图片地址:</label><input v-model.trim="form.url" placeholder="例如：http://www.baidu.com"/>
     </div>
     <div class="fm-btn-wrapper">
       <button class="fm-btn" @click.prevent="handleSubmitBtnClick">确定</button>
@@ -10,16 +10,30 @@
 </template>
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      default () {
+        return {}
+      }
+    }
+  },
   data () {
     return {
-      url: ''
+      form: {
+        url: ''
+      }
+    }
+  },
+  mounted () {
+    this.form = {
+      ...this.form,
+      ...this.data
     }
   },
   methods: {
     handleSubmitBtnClick () {
-      this.$emit('submit', {
-        url: this.url
-      })
+      this.$emit('submit', this.form)
     }
   }
 }

@@ -14,6 +14,7 @@
     </div>
     <!-- 扫码删除按钮 -->
     <div class="fm-op-btn-wrapper" v-show="showOpBtnWrapper">
+      <i class="fm-icon-delete" @click="handleEditBtnClick" v-show="showEditBtn"></i>
       <i class="fm-icon-delete" @click="handleDelBtnClick" v-show="showDeleteBtn"></i>
       <i class="fm-icon-lock" v-show="lockBtn" @click="handleLockBtnClick" v-if="showLockBtn"></i>
       <i class="fm-icon-unlock" v-show="!lockBtn" @click="handleUnLockBtnClick" v-if="showLockBtn"></i>
@@ -27,7 +28,7 @@
     <div class="fm-reload-wrapper">
       <i class="fm-icon-reload" @click="handleReloadBtnClick"></i>
     </div>
-    <fm-form v-if="formShow" @close="formShow = false" @submit="handleFormSubmit"></fm-form>
+    <fm-form v-if="formShow" :data="editPointInfo" @close="formShow = false" @submit="handleFormSubmit"></fm-form>
   </div>
 </template>
 <script>
@@ -99,6 +100,7 @@ export default {
       selectedPoint: undefined,
       formShow: false,
       readyPointInfo: undefined,
+      editPointInfo: undefined,
     }
   },
   computed: {
@@ -116,6 +118,10 @@ export default {
       const point = (this.activePoint || this.selectedPoint)
       return point
     },
+    showEditBtn () {
+      const point = (this.selectedPoint)
+      return point
+    },
     showAddPointBtn () {
       return !(this.selectedPoint || this.activePoint) && !this.addTipInfoShow && !this.formShow
     },
@@ -127,9 +133,6 @@ export default {
     },
     mPointList () {
       return this.pointList
-    },
-    readyAddPoint () {
-      return this.readyPointInfo
     }
   },
   watch: {
@@ -155,10 +158,16 @@ export default {
     this.canvas && this.canvas.destroy()
   },
   methods: {
-    handleFormSubmit (val) {
-      this.readyPointInfo = val
-      this.addTipInfoShow = true
+    async handleFormSubmit (val) {
       this.formShow = false
+      if (!val.id){
+        this.readyPointInfo = val
+        this.addTipInfoShow = true
+      } else {
+        this.editPointInfo = undefined
+        await this.callFun('changeCb', val)
+        this.selectedPoint = null
+      }
     },
     async callFun(name, ...arg) {
       this.$emit(name.replace('Cb', ''), ...arg)
@@ -476,6 +485,13 @@ export default {
         this.removeSelectPoint()
       }
     },
+    handleEditBtnClick () {
+      const point = this.activePoint || this.selectedPoint
+      if (point && point.mPointInfo) {
+        this.editPointInfo = point.mPointInfo
+        this.formShow = true
+      }
+    },
     // 当canvas画布本身进行了变化，事件的点坐标也需要进行变换
     invertPointer ({ x, y } = {}) {
       const mInverse = fabric.util.invertTransform(this.canvas.viewportTransform)
@@ -603,7 +619,8 @@ export default {
     // svgMap中相对位置的点转换到canvas中
     svgMap2CanvasPoint ({ x, y } = {}) {
       let matrix = this.svgMap.calcTransformMatrix()
-      return fabric.util.transformPoint({ x, y }, matrix)
+      const newP = fabric.util.transformPoint({ x, y }, matrix)
+      return newP
     },
   }
 }

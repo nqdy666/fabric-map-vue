@@ -9,7 +9,7 @@
       </div>
     </fm-dialog>
     <fm-dialog :visible.sync="formVisible" @close="handleFormCloseBtnClick">
-      <component :is="fmType.component" @submit="handleFormSubmit"></component>
+      <component :is="fmType.component" @submit="handleFormSubmit" :data="data"></component>
     </fm-dialog>
   </div>
 </template>
@@ -25,6 +25,12 @@ const TYPELIST = [
 ]
 
 export default {
+  props: {
+    data: {
+      type: Object,
+      required: false
+    },
+  },
   components: {
     FmTextForm,
     FmDialog
@@ -38,6 +44,15 @@ export default {
       fmType: {},
     }
   },
+  mounted () {
+    if (this.data) {
+      this.fmType = TYPELIST.find(item => item.type === this.data.type) || {}
+      if (this.fmType.type) {
+        this.formVisible = true
+        this.visible = false
+      }
+    }
+  },
   methods: {
     handleItemClick (item) {
       this.fmType = item
@@ -45,7 +60,11 @@ export default {
       this.formVisible = true
     },
     handleFormCloseBtnClick () {
-      this.visible = true
+      if (this.data) { 
+        this.$emit('close')
+      } else {
+        this.visible = true
+      }
     },
     handleFormSubmit (data) {
       this.$emit('submit', {
