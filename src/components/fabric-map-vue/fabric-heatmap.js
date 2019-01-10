@@ -101,7 +101,8 @@ export default {
         }
       })
       this.heatmap && this.heatmap.setData({
-        max: 5,
+        max: this.heatmapMax,
+        min: this.heatmapMin,
         data
       })
     },
