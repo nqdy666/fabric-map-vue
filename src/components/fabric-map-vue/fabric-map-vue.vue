@@ -3,32 +3,34 @@
     <div class="fm-map-wrapper">
       <canvas id="map-canvas" class="fm-m-canvas"></canvas>
     </div>
-    <!-- 放大缩小 -->
-    <div class="fm-zoom-btn-wrapper">
-      <i @click="handleZoomOutBtnClick" class="fm-icon-plus"></i>
-      <i @click="handleZoomInBtnClick" class="fm-icon-minus"></i>
+    <div v-if="showOp">
+      <!-- 放大缩小 -->
+      <div class="fm-zoom-btn-wrapper">
+        <i @click="handleZoomOutBtnClick" class="fm-icon-plus"></i>
+        <i @click="handleZoomInBtnClick" class="fm-icon-minus"></i>
+      </div>
+      <!-- 添加按钮 -->
+      <div class="fm-add-btn-wrapper" v-show="showAddPointBtn">
+        <i class="fm-icon-plus-circle" @click="handleAddPointBtnClick"></i>
+      </div>
+      <!-- 扫码删除按钮 -->
+      <div class="fm-op-btn-wrapper" v-show="showOpBtnWrapper">
+        <i class="fm-icon-edit" @click="handleEditBtnClick" v-show="showEditBtn"></i>
+        <i class="fm-icon-delete" @click="handleDelBtnClick" v-show="showDeleteBtn"></i>
+        <i class="fm-icon-lock" v-show="lockBtn" @click="handleLockBtnClick" v-if="showLockBtn"></i>
+        <i class="fm-icon-unlock" v-show="!lockBtn" @click="handleUnLockBtnClick" v-if="showLockBtn"></i>
+      </div>
+      <!-- 山下左右的按钮 -->
+      <dir-btn v-show="showDirBtn" @change="handleDirBtnClick"></dir-btn>
+      <!-- 添加信息 -->
+      <div class="fm-add-tip-wrapper" v-show="addTipInfoShow">
+        <p>请在地图中点击以添加点</p>
+      </div>
+      <div class="fm-reload-wrapper">
+        <i class="fm-icon-reload" @click="handleReloadBtnClick"></i>
+      </div>
+      <fm-form v-if="formShow" :data="editPointInfo" @close="formShow = false" @submit="handleFormSubmit"></fm-form>
     </div>
-    <!-- 添加按钮 -->
-    <div class="fm-add-btn-wrapper" v-show="showAddPointBtn">
-      <i class="fm-icon-plus-circle" @click="handleAddPointBtnClick"></i>
-    </div>
-    <!-- 扫码删除按钮 -->
-    <div class="fm-op-btn-wrapper" v-show="showOpBtnWrapper">
-      <i class="fm-icon-edit" @click="handleEditBtnClick" v-show="showEditBtn"></i>
-      <i class="fm-icon-delete" @click="handleDelBtnClick" v-show="showDeleteBtn"></i>
-      <i class="fm-icon-lock" v-show="lockBtn" @click="handleLockBtnClick" v-if="showLockBtn"></i>
-      <i class="fm-icon-unlock" v-show="!lockBtn" @click="handleUnLockBtnClick" v-if="showLockBtn"></i>
-    </div>
-    <!-- 山下左右的按钮 -->
-    <dir-btn v-show="showDirBtn" @change="handleDirBtnClick"></dir-btn>
-    <!-- 添加信息 -->
-    <div class="fm-add-tip-wrapper" v-show="addTipInfoShow">
-      <p>请在地图中点击以添加点</p>
-    </div>
-    <div class="fm-reload-wrapper">
-      <i class="fm-icon-reload" @click="handleReloadBtnClick"></i>
-    </div>
-    <fm-form v-if="formShow" :data="editPointInfo" @close="formShow = false" @submit="handleFormSubmit"></fm-form>
   </div>
 </template>
 <script>
@@ -91,6 +93,10 @@ export default {
       type: String,
       default: '#17171A'
     },
+    showOp: {
+      type: Boolean,
+      default: fasle
+    }
   },
   data () {
     return {
