@@ -372,7 +372,8 @@ export default {
         o.setCoords();
       }
     },
-    handleCanvasMouseDown () {
+    handleCanvasMouseDown (opt) {
+      opt.e && opt.e.stopPropagation()
       this.canvas.discardActiveObject()
       this.rememberRelationShip()
     },
@@ -381,6 +382,7 @@ export default {
       this.limitActivePointPosition()
     },
     handleCanvasMoving (opt) {
+      opt.e && opt.e.stopPropagation()
       if (opt.target === this.svgMap) {
          if (this.movingMinion) this.updateMinions()
       }
@@ -395,10 +397,10 @@ export default {
       this.rememberRelationShip()
     },
     async handleSvgMapMouseUp (opt) {
-      // 根据坐标来判断，当前是处于拖动状态，还是点击状态
+      // 根据坐标来判断，当前是处于拖动状态，还是点击状态W
       if (this.svgMap.left === this.mouseDownSvgMapPointer.left
         && this.svgMap.top === this.mouseDownSvgMapPointer.top) {
-        // 如果进入点击状态，取消选中状态
+        // 如果进入点击状态，取消选中状态WW
         if (this.selectedPoint) {
           this.selectedPoint = null
           this.clearLine()
@@ -423,6 +425,7 @@ export default {
       }
     },
     handleSvgMapMouseDown (opt) {
+      opt.e && opt.e.stopPropagation()
       // 备份点击状态下的位置，用于判断move状态还是click状态
       this.mouseDownSvgMapPointer = { left: this.svgMap.left, top: this.svgMap.top }
       if (this.activePoint) {
@@ -430,6 +433,7 @@ export default {
       }
     },
     handleSvgMapMouseMove (opt) {
+      opt.e && opt.e.stopPropagation()
     },
     handleSvgMapScaling (opt) {
       this.updatePointLine()
@@ -440,8 +444,10 @@ export default {
     initPointEvents (point) {
       const self = this
       point.on('mousedown', function (opt) {
+        opt.e && opt.e.stopPropagation()
       })
       point.on('mousemove', function (opt) {
+        opt.e && opt.e.stopPropagation()
         self.updatePointLine()
       })
       point.on('mouseup', function (opt) {
