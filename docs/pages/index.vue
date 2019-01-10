@@ -1,6 +1,8 @@
 <template>
   <div class="index">
-    <fabric-map-vue :svg-map-url="svgMapUrl" 
+    <fabric-map-vue
+      v-if="showMap"
+      :svg-map-url="svgMapUrl" 
       :change-cb="handleChange"
       :delete-cb="handleDelete"
       :point-list="pointList"
@@ -9,15 +11,18 @@
       :map-unit="mapUnit"
       :heatmap-data="heatmapData"
       @heatmapAdd="handleHeatmapAdd"></fabric-map-vue>
+      <div class="op-wrapper">
+        <label><input type="checkbox" v-model="showMap"/>显示地图</label>
+      </div>
   </div>
 </template>
 
 <style src="./index.css"></style>
-
 <script>
 export default {
   data () {
     return {
+      showMap: true,
       svgMapUrl: 'https://qiniu.qjzd.net/cf.svg',
       pointList: [
         { id: 1, coordX: 0.30141547, coordY: 0.55013478, type: 'img', url: 'http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw' },
@@ -56,5 +61,12 @@ export default {
   .index {
     width: 100%;
     height: 100%;
+  }
+  .op-wrapper {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 2;
+    background: transparent;
   }
 </style>

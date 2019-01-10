@@ -95,7 +95,7 @@ export default {
     },
     showOp: {
       type: Boolean,
-      default: fasle
+      default: false
     }
   },
   data () {
