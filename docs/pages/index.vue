@@ -1,19 +1,21 @@
 <template>
   <div class="index">
-    <fabric-map-vue
-      v-if="showMap"
-      :svg-map-url="svgMapUrl" 
-      :change-cb="handleChange"
-      :delete-cb="handleDelete"
-      :point-list="pointList"
-      :map-width="300"
-      :map-height="100"
-      :map-unit="mapUnit"
-      :heatmap-data="heatmapData"
-      @heatmapAdd="handleHeatmapAdd"></fabric-map-vue>
-      <div class="op-wrapper">
-        <label><input type="checkbox" v-model="showMap"/>显示地图</label>
-      </div>
+    <div class="map-wrapper">
+      <fabric-map-vue
+        v-if="showMap"
+        :svg-map-url="svgMapUrl" 
+        :change-cb="handleChange"
+        :delete-cb="handleDelete"
+        :point-list="pointList"
+        :map-width="300"
+        :map-height="100"
+        :map-unit="mapUnit"
+        :heatmap-data="heatmapData"
+        @heatmapAdd="handleHeatmapAdd"></fabric-map-vue>
+    </div>
+    <div class="op-wrapper">
+      <label><input type="checkbox" v-model="showMap"/>显示地图</label>
+    </div>
   </div>
 </template>
 
@@ -50,17 +52,15 @@ export default {
     },
     handleHeatmapAdd (data) {
       this.heatmapData.push(data)
-      if (this.heatmapData.length === 30) {
-        console.log(JSON.stringify(this.heatmapData))
-      }
     }
   }
 }
 </script>
 <style scoped>
-  .index {
+  .index,.map-wrapper {
     width: 100%;
     height: 100%;
+    position: relative;
   }
   .op-wrapper {
     position: absolute;
