@@ -1,6 +1,6 @@
 {
   "name": "fabric-map-vue",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "地图定位",
   "main": "dist/fabric-map-vue.common.js",
   "types": "src/index.d.ts",
