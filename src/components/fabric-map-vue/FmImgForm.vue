@@ -1,7 +1,7 @@
 <template>
   <form class="fm-form">
     <div class="fm-form-item">
-      <label>图片地址:</label><input v-model.trim="form.url" placeholder="例如：http://www.baidu.com"/>
+      <label>图片地址:</label><input v-model.trim="form.url" placeholder="例如：http://vve.qiniu.qjzd.net/Fn4PgPav04qGpPzpIDw_1qyK9F5Y"/>
     </div>
     <div class="fm-form-item">
       <label>旋转角度:</label><input v-model.number="form.angle" placeholder="例如：50"/>
