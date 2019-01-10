@@ -3,6 +3,9 @@
     <div class="fm-form-item">
       <label>图片地址:</label><input v-model.trim="form.url" placeholder="例如：http://www.baidu.com"/>
     </div>
+    <div class="fm-form-item">
+      <label>旋转角度:</label><input v-model.number="form.angle" placeholder="例如：50"/>
+    </div>
     <div class="fm-btn-wrapper">
       <button class="fm-btn" @click.prevent="handleSubmitBtnClick">确定</button>
     </div>
@@ -21,7 +24,8 @@ export default {
   data () {
     return {
       form: {
-        url: ''
+        url: '',// http://vve.qiniu.qjzd.net/Fn4PgPav04qGpPzpIDw_1qyK9F5Y
+        angle: ''
       }
     }
   },
@@ -33,7 +37,11 @@ export default {
   },
   methods: {
     handleSubmitBtnClick () {
-      this.$emit('submit', this.form)
+      if (!this.form.url) return
+      this.$emit('submit', Object.keys(this.form).reduce((val, key) => {
+        if (this.form[key] || this.form[key] === 0) val[key] = this.form[key]
+        return val
+      }, {}))
     }
   }
 }

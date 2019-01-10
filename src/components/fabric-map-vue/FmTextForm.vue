@@ -4,7 +4,13 @@
       <label>文本内容:</label><input v-model.trim="form.text" placeholder="例如：text"/>
     </div>
     <div class="fm-form-item">
-      <label>字体大小:</label><input v-model.number="form.fontSize" placeholder="例如：12"/>
+      <label>字体大小:</label><input v-model.number="form.fontSize" placeholder="例如：16"/>
+    </div>
+    <div class="fm-form-item">
+      <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;颜色:</label><input v-model="form.fill" placeholder="例如：red或者#FF0000"/>
+    </div>
+    <div class="fm-form-item">
+      <label>旋转角度:</label><input v-model.number="form.angle" placeholder="例如：50"/>
     </div>
     <div class="fm-btn-wrapper">
       <button class="fm-btn" @click.prevent="handleSubmitBtnClick">确定</button>
@@ -25,7 +31,9 @@ export default {
     return {
       form: {
         text: '',
-        fontSize: 16
+        fontSize: '',
+        fill: '',
+        angle: ''
       }
     }
   },
@@ -37,7 +45,11 @@ export default {
   },
   methods: {
     handleSubmitBtnClick () {
-      this.$emit('submit', this.form)
+      if (!this.form.text) return
+      this.$emit('submit', Object.keys(this.form).reduce((val, key) => {
+        if (this.form[key] || this.form[key] === 0) val[key] = this.form[key]
+        return val
+      }, {}))
     }
   }
 }

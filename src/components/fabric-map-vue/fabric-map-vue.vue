@@ -203,10 +203,10 @@ export default {
     async makePointImageObj (data = {}) {
       const { mPointInfo = {}, ...options } = data
       let point
-      if (mPointInfo.type === POINT_TYPE_ENUM.IMG) {
+      if (mPointInfo.type === POINT_TYPE_ENUM.IMG && mPointInfo.url) {
         point = await this.loadImage(mPointInfo.url, filterObjByKeys(
           ["angle","stroke","strokeWidth","fill","backgroundColor","opacity"], mPointInfo))
-      } else if (mPointInfo.type === POINT_TYPE_ENUM.TEXT) {
+      } else if (mPointInfo.type === POINT_TYPE_ENUM.TEXT && mPointInfo.text) {
         point = new fabric.IText(mPointInfo.text, filterObjByKeys(
           [
             "angle","stroke","strokeWidth","fill",
@@ -300,22 +300,11 @@ export default {
       this.canvas.fire('object:scaling', { target: this.svgMap })
       this.svgMap.fire('scaling')
     },
-    // 支持缓存
     async loadImage (imageUrl, options) {
-      if (!this.imagePointCached) this.imagePointCached = {}
       return new Promise((resolve, reject) => {
-        if (this.imagePointCached[imageUrl]) {
-          this.imagePointCached[imageUrl].clone(cloned => {
-            resolve(cloned)
-          })
-        } else {
-          fabric.Image.fromURL(imageUrl, img => {
-            this.imagePointCached[imageUrl] = img
-            this.imagePointCached[imageUrl].clone(cloned => {
-              resolve(cloned)
-            })
-          }, options)
-        }
+        fabric.Image.fromURL(imageUrl, img => {
+          resolve(img)
+        }, options)
       })
     },
     limitActivePointPosition () {
