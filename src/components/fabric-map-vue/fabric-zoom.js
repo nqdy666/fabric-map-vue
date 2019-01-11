@@ -29,6 +29,7 @@ export default {
       this.canvas.on('mouse:wheel', this.handleCanvasMousewheelForZoom)
     },
     handleCanvasMousewheelForZoom (opt) {
+      opt.e && opt.e.stopPropagation()
       if (this.svgMap) {
         const delta = opt.e.deltaY;
         if (this.zoomType === ZOOM_TYPE.MAP) {
