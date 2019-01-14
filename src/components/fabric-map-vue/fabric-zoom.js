@@ -1,3 +1,5 @@
+import { OBJ_POINT } from './constants'
+
 const ZOOM_TYPE = {
   CANVAS: 1,
   MAP: 2,
@@ -27,6 +29,17 @@ export default {
   methods: {
     initZoom () {
       this.canvas.on('mouse:wheel', this.handleCanvasMousewheelForZoom)
+      this.canvas.on('object:scaling', this.handleCanvasObjectScalingForZoom)
+    },
+    handleCanvasObjectScalingForZoom (opt) {
+      if (!this.svgMap) return
+      let zoom = this.canvas.getZoom()
+      for (let item of this.svgMap.getObjects()) {
+        if (item.mType && item.mType === OBJ_POINT && item.mPointInfo) {
+          item.visible = !(item.mPointInfo.zoomThreshold && zoom < item.mPointInfo.zoomThreshold) // 缩小至某个值不显示
+        }
+      }
+      this.canvas.requestRenderAll()
     },
     handleCanvasMousewheelForZoom (opt) {
       opt.e && opt.e.stopPropagation()

@@ -256,6 +256,7 @@ export default {
           this.canvas.requestRenderAll()
         }
       }
+      this.canvas.fire('object:scaling', { target: this.svgMap })
     },
     // 渲染svgmap，如果已经初始化，就销毁，重新初始化
     async renderSvgMap (svgMapUrl) {
