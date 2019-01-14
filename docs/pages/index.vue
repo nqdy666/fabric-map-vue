@@ -11,12 +11,14 @@
         :map-height="100"
         :map-unit="mapUnit"
         :show-op="showOp"
+        :zoom-type="zoomType"
         :heatmap-data="heatmapData"
         @heatmapAdd="handleHeatmapAdd"></fabric-map-vue>
     </div>
     <div class="op-wrapper">
       <label><input type="checkbox" v-model="showMap"/>显示地图</label>
       &nbsp;<label><input type="checkbox" v-model="showOp"/>显示操作</label>
+      &nbsp;<select v-model="zoomType" placeholder="缩放类型"><option :value="1">canvas缩放</option><option :value="2">svg地图缩放</option></select>
     </div>
   </div>
 </template>
@@ -28,6 +30,7 @@ export default {
     return {
       showMap: true,
       showOp: false,
+      zoomType: 1,
       svgMapUrl: 'https://qiniu.qjzd.net/cf.svg',
       pointList: [
         { id: 1, coordX: 0.30141547, coordY: 0.55013478, type: 'img', url: 'http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw' },
