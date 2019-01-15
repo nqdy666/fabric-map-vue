@@ -242,6 +242,9 @@ export default {
     // 渲染点的信息
     async renderPoints () {
       this.clearPoints()
+      // 时间戳，防止两次快速渲染，因为异步原因，导致重复渲染的问题
+      this.timestampForRenderPoints = new Date().getTime()
+
       // 初始化从接口来的点
       for (const pointInfo of this.mPointList) {
         const { coordX, coordY } = pointInfo
@@ -250,10 +253,11 @@ export default {
         const newPoint = this.canvas2SvgMapPoint({ x, y })
         const pointImage = await this.makePointImageObj({
           mPointInfo: pointInfo,
+          mTimestampForRenderPoints: this.timestampForRenderPoints,
           left:  newPoint.x,
           top: newPoint.y
         })
-        if (pointImage) {
+        if (pointImage && pointImage.mTimestampForRenderPoints === this.timestampForRenderPoints) {
           this.svgMap.add(pointImage)
           this.canvas.requestRenderAll()
         }

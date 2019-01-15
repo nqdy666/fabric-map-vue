@@ -15,6 +15,7 @@ export default {
     initAreaDistinguish () {
       this.canvas.on('mouse:down', this.handleCanvasMouseDownForAreaDistinguish)
       this.canvas.on('mouse:up', this.handleCanvasMouseUpForAreaDistinguish)
+      this.canvas.on('mouse:dblclick', this.handleCanvasMouseDbClickForAreaDistinguish)
     },
     handleCanvasMouseDownForAreaDistinguish (opt) {
       if (opt && opt.subTargets && opt.subTargets.length > 0) {
@@ -40,6 +41,15 @@ export default {
         })
         this._distinguishTargetOriginInfo = {}
         this.canvas.requestRenderAll()
+      }
+    },
+    handleCanvasMouseDbClickForAreaDistinguish (opt) {
+      if (opt && opt.subTargets && opt.subTargets.length > 0) {
+        if (opt.subTargets[0].mType && opt.subTargets[0].mType === OBJ_POINT) {
+          this.$emit('pointDbClick', { info: opt.subTargets[0].mPointInfo }, opt.subTargets[0], opt)
+        } else {
+          this.$emit('areaDbClick', { id: opt.subTargets[0].id }, opt.subTargets[0], opt)
+        }
       }
     }
   }
