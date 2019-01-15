@@ -37,6 +37,7 @@
 import { POINT_TYPE_ENUM, OBJ_POINT } from './constants'
 import fabricHeatmapMixin from './fabric-heatmap'
 import fabricZoom from './fabric-zoom'
+import fabricAreaDistinguish from './fabric-area-distinguish'
 import fabricPointLine from './fabric-point-line'
 import './fabric-map-vue.scss'
 import FabricReizeableCavas from './fabric-resizeable-canvas'
@@ -52,7 +53,7 @@ function filterObjByKeys(arrKeys = [], obj = {}) {
 }
 
 export default {
-  mixins: [fabricHeatmapMixin, fabricZoom, fabricPointLine],
+  mixins: [fabricHeatmapMixin, fabricZoom, fabricAreaDistinguish, fabricPointLine],
   components: {
     DirBtn,
     FmForm
@@ -158,6 +159,7 @@ export default {
     this.initPointLine()
     this.initZoom()
     this.initHeatMap()
+    this.initAreaDistinguish()
   },
   beforeDestroy () {
     this.canvas && this.canvas.destroy()
@@ -275,6 +277,7 @@ export default {
       this.svgMap.on('scaled', this.handleSvgMapScaled) // info 通过api scale设置不会触发
       // 初始化位置
       this.initSvgMapPosition()
+
       // 重新渲染点
       await this.renderPoints ()
 

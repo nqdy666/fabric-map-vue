@@ -13,7 +13,9 @@
         :show-op="showOp"
         :zoom-type="zoomType"
         :heatmap-data="heatmapData"
-        @heatmapAdd="handleHeatmapAdd"></fabric-map-vue>
+        @heatmapAdd="handleHeatmapAdd"
+        @pointClick="handlePointClick"
+        @areaClick="handleAreaClick"></fabric-map-vue>
     </div>
     <div class="op-wrapper">
       <label><input type="checkbox" v-model="showMap"/>显示地图</label>
@@ -58,6 +60,12 @@ export default {
     },
     handleHeatmapAdd (data) {
       this.heatmapData.push(data)
+    },
+    handlePointClick (info) {
+      console.log('point', info)
+    },
+    handleAreaClick (info) {
+      console.log('area', info)
     }
   }
 }
