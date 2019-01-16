@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <fabric-building-map-vue :build-data="buildData"></fabric-building-map-vue>
+    <fabric-building-map-vue :build-data="buildData" v-model="mapData"></fabric-building-map-vue>
   </div>
 </template>
 
@@ -27,7 +27,8 @@ export default {
             heatmapData: [{"coordX":0.58284762697751874,"coordY":0.3706199460916442, value: 100 }]
           }
         ]
-      }
+      },
+      mapData: undefined
     }
   },
 }

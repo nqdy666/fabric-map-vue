@@ -27,19 +27,6 @@
 <script>
 import FabricMapVue from '../fabric-map-vue/fabric-map-vue'
 
-// 遍历树
-function travelTree(tree, callback) {
-  function travalNode (node) {
-    callback(node)
-    if (node.children && node.children.length) {
-      for (const item of node.children) {
-        travalNode(item)
-      }
-    }
-  }
-  travalNode(tree)
-}
-
 // 从树找到ID的节点
 function getItemFromTreeById (tree, id) {
   function travalNode (node) {
@@ -83,15 +70,23 @@ export default {
           // ]
         }
       }
+    },
+    value: {
+      type: Object,
+      required: false
     }
   },
   data () {
     return {
-      mapData: undefined
+    }
+  },
+  computed: {
+    mapData () {
+      return this.value
     }
   },
   mounted () {
-    this.mapData = this.buildData
+    if (!this.mapData) this.emitValue(this.buildData)
   },
   methods: {
     handleAreaClick (data) {
@@ -101,7 +96,9 @@ export default {
       this.$emit('areaDbClick', data, this.mapData)
       if (data.id) {
         const node = getItemFromTreeById(this.buildData, data.id)
-        if (node) this.mapData = node
+        if (node) {
+          this.emitValue(node)
+        }
       }
     },
     handlePointClick (data) {
@@ -109,11 +106,20 @@ export default {
     },
     handlePointDbClick(data) {
       this.$emit('pointDbClick', data, this.mapData)
+      // if (data.info && data.info.id) {
+      //   const node = getItemFromTreeById(this.buildData, data.info.id)
+      //   if (node) {
+      //     this.emitValue(node)
+      //   }
+      // }
     },
+    emitValue (mapData) {
+      this.$emit('input', mapData)
+    }
   },
   watch: {
-    buildData () {
-      this.mapData = this.buildData
+    buildData (val) {
+      if (!this.mapData) this.emitValue(this.buildData)
     }
   }
 }
