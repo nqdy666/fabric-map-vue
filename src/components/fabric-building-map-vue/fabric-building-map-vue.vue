@@ -23,7 +23,7 @@
         @areaClick="handleAreaClick"
         @areaDbClick="handleAreaDbClick">
       </fabric-map-vue>
-    <div class="fm-b-back-wrapper">
+    <div class="fm-b-back-wrapper" v-if="historyCount > 1">
       <i class="fm-icon-left-circle fm-b-back-icon" @click="handleBackBtnClick"></i>
     </div>
     <div class="fm-b-floor-wrapper" v-if="mapData && mapData.floorList">
@@ -36,6 +36,7 @@
 </template>
 <script>
 import FabricMapVue from '../fabric-map-vue/fabric-map-vue'
+import './fabric-building-map-vue.css'
 
 // 从树找到ID的节点
 function getItemFromTreeById (tree, id) {
@@ -147,45 +148,3 @@ export default {
   }
 }
 </script>
-<style>
-  .fm-b-wrapper {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-  .fm-b-floor-wrapper {
-    position: absolute;
-    top: 40px;
-    right: 10px;
-  }
-  .fm-b-floor-list {
-    display: flex;
-    flex-direction: column;
-  }
-  .fm-b-floor-item {
-    margin: 5px 0;
-    color: white;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    background: #409eff;
-    text-align: center;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 2;
-  }
-  .fm-b-floor-item:hover {
-    background: #2c91f9;
-  }
-  .fm-b-back-wrapper {
-    position: absolute;
-    top: 40px;
-    left: 10px;
-    z-index: 2;
-  }
-  .fm-b-back-icon {
-    color: #409eff;
-    font-size: 20px;
-    cursor: pointer;
-  }
-</style>
