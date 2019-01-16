@@ -3,6 +3,7 @@
     <fabric-map-vue
         v-if="mapData"
         :svg-map-url="mapData.svgMapUrl" 
+        :background-color="mapData.backgroundColor"
         :point-list="mapData.pointList"
         :map-width="mapData.mapWidth"
         :map-height="mapData.mapHeight"
@@ -22,6 +23,12 @@
         @areaClick="handleAreaClick"
         @areaDbClick="handleAreaDbClick">
       </fabric-map-vue>
+    <div class="fm-b-floor-wrapper" v-if="mapData && mapData.floorList">
+      <ul class="fm-b-floor-list">
+        <li class="fm-b-floor-item"
+          v-for="(item, index) of mapData.floorList" :key="index" @click="handleFloorClick(item)">{{item.name}}</li>
+      </ul>
+    </div>  
   </div>
 </template>
 <script>
@@ -113,6 +120,9 @@ export default {
       //   }
       // }
     },
+    handleFloorClick (floor) {
+      this.emitValue(floor)
+    },
     emitValue (mapData) {
       this.$emit('input', mapData)
     }
@@ -128,5 +138,30 @@ export default {
   .fm-b-wrapper {
     width: 100%;
     height: 100%;
+    position: relative;
+  }
+  .fm-b-floor-wrapper {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+  }
+  .fm-b-floor-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .fm-b-floor-item {
+    margin: 5px 0;
+    color: white;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    background: #409eff;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .fm-b-floor-item:hover {
+    background: #2c91f9;
   }
 </style>

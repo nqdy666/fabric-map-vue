@@ -26,6 +26,26 @@ export default {
             ],
             heatmapData: [{"coordX":0.58284762697751874,"coordY":0.3706199460916442, value: 100 }]
           }
+        ],
+        floorList: [
+          {
+            id: 1,
+            name: '1F',
+            svgMapUrl: 'https://vve.qiniu.qjzd.net/FjX8v4j87gKoqHLeKTfcRyxxdm7t',
+            pointList: [
+              { id: 2, coordX: 0.40141547, coordY: 0.55013478, type: 'img', url: 'http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw' },
+            ],
+            heatmapData: [{"coordX":0.58284762697751874,"coordY":0.3706199460916442, value: 100 }]
+          },
+          {
+            id: 2,
+            name: '2F',
+            svgMapUrl: 'https://vve.qiniu.qjzd.net/FjX8v4j87gKoqHLeKTfcRyxxdm7t',
+            pointList: [
+              { id: 2, coordX: 0.40141547, coordY: 0.55013478, type: 'img', url: 'http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw' },
+            ],
+            heatmapData: [{"coordX":0.78284762697751874,"coordY":0.3706199460916442, value: 100 }]
+          }
         ]
       },
       mapData: undefined
