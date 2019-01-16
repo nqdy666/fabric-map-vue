@@ -27,6 +27,9 @@
 .fm-b-floor-item:hover {
   background: #2c91f9;
 }
+.fm-b-floor-item.active {
+  background: #7a65ee;
+}
 .fm-b-back-wrapper {
   position: absolute;
   top: 40px;
