@@ -23,6 +23,9 @@
         @areaClick="handleAreaClick"
         @areaDbClick="handleAreaDbClick">
       </fabric-map-vue>
+    <div class="fm-b-back-wrapper">
+      <i class="fm-icon-left-circle fm-b-back-icon" @click="handleBackBtnClick"></i>
+    </div>
     <div class="fm-b-floor-wrapper" v-if="mapData && mapData.floorList">
       <ul class="fm-b-floor-list">
         <li class="fm-b-floor-item"
@@ -85,6 +88,8 @@ export default {
   },
   data () {
     return {
+      historyMaps: [],
+      historyCount: 0
     }
   },
   computed: {
@@ -123,8 +128,16 @@ export default {
     handleFloorClick (floor) {
       this.emitValue(floor)
     },
+    handleBackBtnClick () {
+      if (this.historyCount <= 1) return
+      const mapData = this.historyMaps[this.historyCount - 2]
+      this.historyCount--
+      this.$emit('input', mapData)
+    },
     emitValue (mapData) {
       this.$emit('input', mapData)
+      this.historyMaps.push(mapData)
+      this.historyCount++
     }
   },
   watch: {
@@ -163,5 +176,16 @@ export default {
   }
   .fm-b-floor-item:hover {
     background: #2c91f9;
+  }
+  .fm-b-back-wrapper {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    z-index: 2;
+  }
+  .fm-b-back-icon {
+    color: #409eff;
+    font-size: 20px;
+    cursor: pointer;
   }
 </style>
