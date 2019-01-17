@@ -196,7 +196,10 @@ export default {
     },
     emitValue (mapData) {
       this.$emit('input', mapData)
-      this.historyMaps.push(mapData)
+      if (this.historyCount < this.historyMaps.length) {
+        this.historyMaps = this.historyMaps.slice(0, this.historyCount)
+      }
+      this.historyMaps[this.historyCount] = mapData
       this.historyCount++
     }
   },
