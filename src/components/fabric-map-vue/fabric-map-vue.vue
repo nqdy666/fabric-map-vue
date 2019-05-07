@@ -202,6 +202,7 @@ export default {
     },
     // 清除点信息
     clearPoints () {
+      if (!this.svgMap) return
       for (let item of this.svgMap.getObjects()) {
         if (item.mType && item.mType === OBJ_POINT) {
           this.svgMap.remove(item)
@@ -230,7 +231,15 @@ export default {
         point.originX = 'center'
         point.originY = 'center'
       } else if (mPointInfo.type === POINT_TYPE_ENUM.AREA) {
-        const clonedStartPoints = mPointInfo.startPoints.map(item => {
+        let startPoints = mPointInfo.startPoints || []
+        if (mPointInfo.absolute) {
+          startPoints = startPoints.map(o => {
+            const coordX = o.x / this.svgMap.width
+            const coordY = o.y / this.svgMap.height
+            return { coordX, coordY }
+          });
+        }
+        const clonedStartPoints = startPoints.map(item => {
           // 坐标点转换
           const { x, y } = this.svgRateInfo2Point({ coordX: item.coordX, coordY: item.coordY })
           const newPoint = this.canvas2SvgMapPoint({ x, y })
@@ -559,6 +568,7 @@ export default {
     },
     // svg图的比例坐标转换成canvas坐标点
     svgRateInfo2Point ({ coordX, coordY } = {}, absoulte) {
+      if (!this.svgMap) return {}
       let x = Math.round(coordX * this.svgMap.getScaledWidth() + this.svgMap.left)
       let y = Math.round(coordY * this.svgMap.getScaledHeight() + this.svgMap.top)
       // canvas viewport发生变换，也需要计算出基于canvas变换后新的位置
@@ -658,6 +668,7 @@ export default {
     // canvas中的点转换到svg图中的相对位置点
     // 转换到group中坐标 参考https://github.com/nqdy666/Fabric-Tutorial_zh-CN/blob/master/part-6.md
     canvas2SvgMapPoint ({ x, y } = {}) {
+      if (!this.svgMap) return {}
       let matrix = this.svgMap.calcTransformMatrix()
       const invertMatrix = fabric.util.invertTransform(matrix)
       return fabric.util.transformPoint({ x, y }, invertMatrix)
