@@ -5,12 +5,17 @@
 </template>
 
 <script>
+import fabricBuildingMapVue from '../components/fabric-building-map-vue'
+
 const TYPE_ENUM = {
   AREA: 1,
   BUILDING: 2,
   FLOOR: 3,
 }
 export default {
+  components: {
+    fabricBuildingMapVue
+  },
   data () {
     return {
       buildData: {

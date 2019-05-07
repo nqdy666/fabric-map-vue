@@ -36,7 +36,6 @@
   </div>
 </template>
 <script>
-import FabricMapVue from '../fabric-map-vue/fabric-map-vue'
 import './fabric-building-map-vue.css'
 
 const TYPE_ENUM = {
@@ -84,7 +83,6 @@ function getParentFromTreeByRef (tree, data) {
 
 export default {
   components: {
-    FabricMapVue
   },
   props: {
     buildData: {
