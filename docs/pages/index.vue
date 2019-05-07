@@ -37,7 +37,23 @@ export default {
       pointList: [
         { id: 1, coordX: 0.30141547, coordY: 0.55013478, type: 'img', url: 'http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw' },
         { zoomThreshold: 0.5, id: 2, coordX: 0.6944213, coordY: 0.55121297, type: 'text', fill: 'red', text: '餐饮  店', fontSize: 16, angle: 10, underline: true },
-        {coordX: 0.0016652789342214821, coordY: 0.5929919137466307, id: 3}
+        { coordX: 0.0016652789342214821, coordY: 0.5929919137466307, id: 3 },
+        { 
+          startPoints: [
+            {
+              "coordX": 0.24424091035248402,
+              "coordY": 0.38933812518718175,
+            },
+            {
+              "coordX": 0.15820149875104078,
+              "coordY": 0.5091344713986223,
+            },
+            {
+              "coordX": 0.32750485706355814,
+              "coordY": 0.4941599281221922,
+            }
+          ],
+          type: 'area', id: 4}
       ],
       mapUnit: 'm',
       // heatmapData: [],

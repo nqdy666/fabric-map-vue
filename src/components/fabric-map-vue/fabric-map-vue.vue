@@ -118,7 +118,8 @@ export default {
       return point
     },
     showOpBtnWrapper () {
-      return !!(this.selectedPoint || this.activePoint)
+      const point = (this.selectedPoint || this.activePoint)
+      return !!point && point.mPointInfo && point.mPointInfo.type !== POINT_TYPE_ENUM.AREA
     },
     showDeleteBtn () {
       const point = (this.activePoint || this.selectedPoint)
@@ -209,11 +210,13 @@ export default {
     },
     // 创建point image对象
     async makePointImageObj (data = {}) {
-      const { mPointInfo = {}, ...options } = data
+      let { mPointInfo = {}, ...options } = data
       let point
       if (mPointInfo.type === POINT_TYPE_ENUM.IMG && mPointInfo.url) {
         point = await this.loadImage(mPointInfo.url, filterObjByKeys(
           ["angle","stroke","strokeWidth","fill","backgroundColor","opacity"], mPointInfo))
+        point.originX = 'center'
+        point.originY = 'center'
       } else if (mPointInfo.type === POINT_TYPE_ENUM.TEXT && mPointInfo.text) {
         point = new fabric.IText(mPointInfo.text, filterObjByKeys(
           [
@@ -224,11 +227,28 @@ export default {
           ],
           mPointInfo
         ))
+        point.originX = 'center'
+        point.originY = 'center'
+      } else if (mPointInfo.type === POINT_TYPE_ENUM.AREA) {
+        const clonedStartPoints = mPointInfo.startPoints.map(item => {
+          // 坐标点转换
+          const { x, y } = this.svgRateInfo2Point({ coordX: item.coordX, coordY: item.coordY })
+          const newPoint = this.canvas2SvgMapPoint({ x, y })
+          return newPoint
+        });
+        point = new fabric.Polygon(clonedStartPoints, {
+          fill: 'transparent',
+          stroke: 'red',
+          strokeWidth: 2,
+          strokeDashArray: [5, 5],
+          ...filterObjByKeys(
+          ["angle","stroke","strokeWidth","fill","strokeDashArray"], mPointInfo)
+        })
+        point.originX = 'left'
+        point.originY = 'top'
       } else {
         return // 如果不是要求的类型，不显示
       }
-      point.originX = 'center'
-      point.originY = 'center'
       point.hasControls = false
       point.hasBorders = false
       point.lockRotation = true
@@ -247,16 +267,24 @@ export default {
 
       // 初始化从接口来的点
       for (const pointInfo of this.mPointList) {
-        const { coordX, coordY } = pointInfo
+        const { coordX, coordY, type } = pointInfo
         const { x, y } = this.svgRateInfo2Point({ coordX, coordY })
         // 坐标点转换
         const newPoint = this.canvas2SvgMapPoint({ x, y })
-        const pointImage = await this.makePointImageObj({
-          mPointInfo: pointInfo,
-          mTimestampForRenderPoints: this.timestampForRenderPoints,
-          left:  newPoint.x,
-          top: newPoint.y
-        })
+
+        // 多边形不需要left,top属性
+        const optionsData = type === POINT_TYPE_ENUM.AREA ?
+          { 
+            mPointInfo: pointInfo,
+            mTimestampForRenderPoints: this.timestampForRenderPoints,
+          } : {
+            mPointInfo: pointInfo,
+            mTimestampForRenderPoints: this.timestampForRenderPoints,
+            left:  newPoint.x,
+            top: newPoint.y
+          }
+        const pointImage = await this.makePointImageObj(optionsData)
+        
         if (pointImage && pointImage.mTimestampForRenderPoints === this.timestampForRenderPoints) {
           this.svgMap.add(pointImage)
           this.canvas.requestRenderAll()
