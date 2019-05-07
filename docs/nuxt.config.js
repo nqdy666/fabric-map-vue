@@ -1,7 +1,10 @@
 
 module.exports = {
   srcDir: __dirname,
-
+  server: {
+    port: 3001, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
   build: {
     extractCSS: true,
     cssSourceMap: true,
