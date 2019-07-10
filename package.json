@@ -1,7 +1,7 @@
 {
   "name": "fabric-map-vue",
   "version": "0.0.7",
-  "description": "地图定位",
+  "description": "fabric map for vue",
   "main": "dist/fabric-map-vue.common.js",
   "types": "src/index.d.ts",
   "web": "dist/fabric-map-vue.js",
@@ -112,11 +112,9 @@
   },
   "keywords": [
     "Vue",
-    "VueJS"
-  ],
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/fabric-map-vue",
-    "logo": "https://opencollective.com/opencollective/logo.txt"
-  }
+    "VueJS",
+    "FabricJs",
+    "HeatmapJs",
+    "MapCordinate"
+  ]
 }
