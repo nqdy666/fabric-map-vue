@@ -21,6 +21,7 @@
         tabs: [
           { name: 'index', label: '热力地图' },
           { name: 'coord', label: '地图定位' },
+          { name: 'zoom', label: '缩放类型' },
           { name: 'distance', label: '距离绘制' },
           { name: 'mapswitch', label: '地图切换' },
         ]
