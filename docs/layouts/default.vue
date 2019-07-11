@@ -38,7 +38,7 @@
     }
   }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
   .layout {
     width: 100%;
     height: 100%;
@@ -65,5 +65,17 @@
   }
   .right-wrapper {
     height: 100%;
+  }
+
+  .op-wrapper {
+    width: 150px;
+    padding: 10px;
+  }
+  .tip {
+    font-size: 14px;
+    color: #8c8c8c;
+  }
+  .section {
+    padding-bottom: 10px;
   }
 </style>

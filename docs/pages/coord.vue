@@ -1,10 +1,15 @@
 <template>
   <div class="container layout-rl">
     <div class="op-wrapper">
-      &nbsp;
-      <label>
+      <div class="section">
+        <p class="tip">提示说明</p>
+      </div>
+      <div class="section">
+        <p class="tip">属性编辑</p>
+        <label>
         <input type="checkbox" v-model="showOp" />显示操作
       </label>
+      </div>
     </div>
     <div class="map-wrapper">
       <fabric-map-vue
@@ -74,8 +79,7 @@ export default {
     handleChange(data) {
       if (!data.id) {
         data.id =
-          Math.max.apply(null, this.pointList.map(item => item.id).concat(0)) +
-          1;
+          Math.max.apply(null, this.pointList.map(item => item.id).concat(0)) + 1;
         this.pointList.push(data);
       } else {
         const point = this.pointList.find(item => item.id === data.id);
@@ -85,9 +89,6 @@ export default {
     handleDelete(data) {
       const point = this.pointList.find(item => item.id === data.id);
       this.pointList.splice(this.pointList.indexOf(point), 1);
-    },
-    handleHeatmapAdd(data) {
-      this.heatmapData.push(data);
     }
   }
 };
@@ -98,8 +99,5 @@ export default {
   height: 100%;
   position: relative;
 }
-.op-wrapper {
-  width: 150px;
-  background: transparent;
-}
+
 </style>
