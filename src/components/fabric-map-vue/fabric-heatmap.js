@@ -1,6 +1,6 @@
 import h337 from 'heatmap.js'
 import debounce from 'lodash.debounce'
-import { addResizeListener, removeResizeListener } from '../../utils/detect-element-resize'
+import { addListener } from 'resize-detector'
 
 export default {
   props: {
@@ -44,7 +44,7 @@ export default {
       this.heatmap = h337.create({
         container: this.$heatmapEl
       })
-      addResizeListener(this.$heatmapEl, this._handleHeatmapResize)
+      addListener(this.$heatmapEl, this._handleHeatmapResize)
       this.renderHeatmap()
       this.canvas.on('mouse:up', this.handleCanvasMouseUpForHeatmap)
       this.canvas.on('object:scaling', this.handleCanvasScalingForHeatmap)

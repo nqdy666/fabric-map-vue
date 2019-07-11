@@ -1,4 +1,4 @@
-import { addResizeListener, removeResizeListener } from '../../utils/detect-element-resize'
+import { addListener, removeListener } from 'resize-detector'
 
 export default class FabricResizableCavas extends fabric.Canvas {
   constructor(el, options = {}) {
@@ -11,13 +11,13 @@ export default class FabricResizableCavas extends fabric.Canvas {
         this.setWidth(parentEl.clientWidth)
         this.requestRenderAll()
       }
-      addResizeListener(parentEl, () => {
+      addListener(parentEl, () => {
         resizeCanvas()
       })
       resizeCanvas()
     }
   }
   destroy () {
-    this.parentEl && removeResizeListener(this.parentEl)
+    this.parentEl && removeListener(this.parentEl)
   }
 }

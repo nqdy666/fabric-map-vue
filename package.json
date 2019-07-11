@@ -43,7 +43,8 @@
   },
   "dependencies": {
     "heatmap.js": "^2.0.5",
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "resize-detector": "^0.2.0"
   },
   "devDependencies": {
     "@nuxtjs/google-analytics": "^2.0.2",
