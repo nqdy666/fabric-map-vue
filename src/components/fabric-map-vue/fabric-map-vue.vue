@@ -216,8 +216,8 @@ export default {
       if (mPointInfo.type === POINT_TYPE_ENUM.IMG && mPointInfo.url) {
         point = await this.loadImage(mPointInfo.url, filterObjByKeys(
           ["angle","stroke","strokeWidth","fill","backgroundColor","opacity"], mPointInfo))
-        point.originX = 'center'
-        point.originY = 'center'
+        point.originX = mPointInfo.originX || 'center'
+        point.originY = mPointInfo.originY || 'center'
       } else if (mPointInfo.type === POINT_TYPE_ENUM.TEXT && mPointInfo.text) {
         point = new fabric.IText(mPointInfo.text, filterObjByKeys(
           [
@@ -228,8 +228,8 @@ export default {
           ],
           mPointInfo
         ))
-        point.originX = 'center'
-        point.originY = 'center'
+        point.originX = mPointInfo.originX || 'center'
+        point.originY = mPointInfo.originY || 'center'
       } else if (mPointInfo.type === POINT_TYPE_ENUM.AREA) {
         let startPoints = mPointInfo.startPoints || []
         if (mPointInfo.absolute) {
