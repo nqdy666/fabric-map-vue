@@ -40,9 +40,7 @@ export default {
           coordX: 0.30141547,
           coordY: 0.55013478,
           type: "img",
-          originX: 'center',
-          originY: 'bottom',
-          url: "http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw"
+          url: "http://vve.qiniu.qjzd.net/Fgjso-fDXte_VzkvQS2n2d_Fb5uw"
         },
         {
           zoomThreshold: 0.5,
