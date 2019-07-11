@@ -15,3 +15,21 @@ body {
   width: 100%;
   height: 100%;
 }
+
+.layout-lr {
+  > div:first-child {
+    float: left;
+  }
+  > div:nth-child(2) {
+    overflow: hidden;
+  }
+}
+
+.layout-rl {
+  > div:first-child {
+    float: right;
+  }
+  > div:nth-child(2) {
+    overflow: hidden;
+  }
+}

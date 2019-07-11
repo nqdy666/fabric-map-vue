@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout layout-lr">
     <div class="left-wrapper">
       <ul>
         <li v-for="item of tabs" 
@@ -42,7 +42,6 @@
   .layout {
     width: 100%;
     height: 100%;
-    display: flex;
   }
   .left-wrapper {
     width: 150px;
@@ -65,8 +64,6 @@
     }
   }
   .right-wrapper {
-    width: 100%;
     height: 100%;
-    flex: 1;
   }
 </style>
