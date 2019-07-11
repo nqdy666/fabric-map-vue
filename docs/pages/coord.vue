@@ -49,7 +49,7 @@ export default {
           coordY: 0.55121297,
           type: "text",
           fill: "red",
-          text: "餐饮  店",
+          text: "餐饮店",
           fontSize: 16,
           angle: 10,
           underline: true
