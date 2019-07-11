@@ -3,6 +3,10 @@
     <div class="op-wrapper">
       <div class="section">
         <p class="tip">提示说明</p>
+        <ul>
+          <li><p>支持图片、文本、多边形的显示。</p></li>
+          <li><p><code>show-op</code>属性开启后，支持可视化在图上添加图片和文本。</p></li>
+        </ul>
       </div>
       <div class="section">
         <p class="tip">属性编辑</p>
@@ -13,7 +17,6 @@
     </div>
     <div class="map-wrapper">
       <fabric-map-vue
-        v-if="showMap"
         :svg-map-url="svgMapUrl"
         @change="handleChange"
         @delete="handleDelete"
@@ -28,7 +31,6 @@
 export default {
   data() {
     return {
-      showMap: true,
       showOp: false,
       zoomType: 1,
       svgMapUrl: "https://qiniu.qjzd.net/cf.svg",

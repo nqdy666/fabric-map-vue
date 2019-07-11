@@ -68,7 +68,7 @@
   }
 
   .op-wrapper {
-    width: 150px;
+    width: 250px;
     padding: 10px;
   }
   .tip {

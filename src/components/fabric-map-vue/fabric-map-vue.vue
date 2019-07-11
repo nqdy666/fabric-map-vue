@@ -530,6 +530,7 @@ export default {
       }
     },
     handleAddPointBtnClick () {
+      this.editPointInfo = undefined
       this.formShow = true
     },
     async handleDelBtnClick () {
