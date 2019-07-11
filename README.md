@@ -57,7 +57,6 @@ Vue.use(FabricMapVue)
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.7/dist/fabric-map-vue.css"/>
-
 ```
 
 ```html

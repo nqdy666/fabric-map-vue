@@ -25,7 +25,6 @@
   </div>
 </template>
 
-<style src="./index.css"></style>
 <script>
 export default {
   data () {
