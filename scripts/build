@@ -11,6 +11,10 @@ BABEL_ENV=es babel -d es  -D --ignore '*.spec.js,*.json,fixtures' src/
 rollup -c scripts/rollup.config.js
 rollup -c scripts/rollup.config.esm.js
 
+# Copy fabric.js
+cp docs/static/js/fabric.js dist/fabric.js
+cp docs/static/js/fabric-no-gesture.js dist/fabric-no-gesture.js
+
 # Uglify rollup build
 uglify=`pwd`/node_modules/.bin/uglifyjs
 cd dist
