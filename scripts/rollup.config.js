@@ -22,10 +22,8 @@ if (!fs.existsSync(dist)) {
 // since they are expected to be provided later.
 // We want to include some of them in the build, so we exclude it here.
 const externalExcludes = [
-  'popper.js',
-  'lodash.startcase',
-  'lodash.get',
-  'vue-functional-data-merge'
+  'resize-detector',
+  'lodash.debounce'
 ]
 
 module.exports = {

@@ -35,7 +35,7 @@ $ npm install fabric-map-vue
 先需要引用fabric.js
 
 ```html
-<script script="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.7/dist/fabric.js"></script>
+<script script="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.7/dist/fabric.min.js"></script>
 ```
 
 组件注册
@@ -62,7 +62,7 @@ Vue.use(FabricMapVue)
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.7/dist/fabric.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.7/dist/fabric.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js"></script>
 <!-- 使用最新版本 -->
 <script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@latest"></script>
