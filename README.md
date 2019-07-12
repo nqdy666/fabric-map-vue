@@ -4,9 +4,7 @@
 [![download](https://img.shields.io/npm/dm/fabric-map-vue.svg)](https://www.npmjs.com/package/fabric-map-vue)
 [![license](https://img.shields.io/github/license/nqdy666/fabric-map-vue.svg)](https://github.com/nqdy666/fabric-map-vue/blob/dev/LICENSE)
 
-> 基于fabric的坐标定位，svg热力图
-
-> [English Document](./README.md)
+> 基于fabric的地图定位，SVG热力地图
 
 基于 [fabricjs](http://fabricjs.com/) v2.4.5 开发，热力图基于 [heatmap.js](https://www.patrick-wied.at/static/heatmapjs/) v2.0.5+ 开发，依赖 [Vue.js](https://vuejs.org/) v2.2.6+.
 
@@ -21,7 +19,21 @@
 
 ## 文档
 - **[Demo](https://nqdy666.github.io/fabric-map-vue/)**
-- **[Example on JSBin](https://jsbin.com/quwakos/edit?html,css,js,output)**
+- **[Example on JSBin](https://jsbin.com/hukeko/edit?html,css,js,output)**
+
+## 功能预览
+
+**热力地图 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/index.vue)**
+
+**缩放类型 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/zoom.vue)**
+
+**地图定位 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/coord.vue)**
+
+**距离绘制 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/distance.vue)**
+
+**地图切换 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/mapswitch.vue)**
+
+**背景设置 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/background.vue)**
 
 ## 安装
 
@@ -75,20 +87,6 @@ Vue.use(FabricMapVue)
 ```html
 <fabric-map-vue svg-map-url="https://qiniu.qjzd.net/cf.svg"></fabric-map-vue>
 ```
-
-## 功能预览
-
-** 热力地图 [示例源码]()**
-
-** 缩放类型 [示例源码]()**
-
-** 地图定位 [示例源码]()**
-
-** 距离绘制 [示例源码]()**
-
-** 地图切换 [示例源码]()**
-
-** 背景设置 [示例源码]()**
 
 ## 本地开发
 
