@@ -1,5 +1,10 @@
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/fabric-map-vue/'
+  }
+} : {}
 
-module.exports = {
+module.exports = Object.assign(routerBase, {
   srcDir: __dirname,
   server: {
     port: 3001, // default: 3000
@@ -24,6 +29,10 @@ module.exports = {
     theme_color: '#563d7c'
   },
 
+  generate: {
+    dir: 'docs-dist'
+  },
+
   plugins: [
     { src: '~plugins/fabric-map-vue.js', ssr: false }
   ],
@@ -45,4 +54,4 @@ module.exports = {
   css: [
     '~assets/css/app.scss'
   ]
-}
+})
