@@ -10,9 +10,14 @@
       </div>
       <div class="section">
         <p class="tip">属性编辑</p>
-        <label>
-        <input type="checkbox" v-model="showOp" />显示操作
-      </label>
+        <div>
+          <p>显示操作</p>
+          <input type="checkbox" v-model="showOp" />
+        </div>
+        <div>
+          <p>点数据：</p>
+          <textarea class="textarea" :rows="10" readonly :value="JSON.stringify(pointList)"></textarea>
+        </div>
       </div>
     </div>
     <div class="map-wrapper">
@@ -100,5 +105,8 @@ export default {
 .map-wrapper {
   height: 100%;
   position: relative;
+}
+.textarea {
+  width: 100%;
 }
 </style>

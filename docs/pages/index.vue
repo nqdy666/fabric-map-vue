@@ -40,7 +40,6 @@
     <div class="map-wrapper">
       <fabric-map-vue
         :svg-map-url="svgMapUrl"
-        :point-list="pointList"
         :heatmap-min="heatmapMin"
         :heatmap-max="heatmapMax"
         :heatmap-options="heatmapOptions"
