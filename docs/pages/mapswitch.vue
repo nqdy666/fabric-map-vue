@@ -1,6 +1,16 @@
 <template>
-  <div class="index">
-    <fabric-building-map-vue :build-data="buildData" v-model="mapData"></fabric-building-map-vue>
+  <div class="container layout-rl">
+    <div class="op-wrapper">
+      <div class="section">
+        <p class="tip">提示说明</p>
+        <ul>
+          <li><p>双击点位，可以进行svg图切换。</p></li>
+        </ul>
+      </div>
+    </div>
+    <div class="map-wrapper">
+      <fabric-building-map-vue :build-data="buildData" v-model="mapData"></fabric-building-map-vue>
+    </div>
   </div>
 </template>
 
@@ -23,7 +33,7 @@ export default {
         type: TYPE_ENUM.AREA,
         svgMapUrl: 'https://qiniu.qjzd.net/cf.svg',
         pointList: [
-          { id: 2, coordX: 0.30141547, coordY: 0.55013478, type: 'img', url: 'http://vve.qiniu.qjzd.net/FlMiBGKRZHyNtFL03ZCWv5ucIlCw' },
+          { id: 2, coordX: 0.30141547, coordY: 0.55013478, type: 'img', url: 'http://vve.qiniu.qjzd.net/Fgjso-fDXte_VzkvQS2n2d_Fb5uw' },
           { zoomThreshold: 0.5, id: 2, coordX: 0.6944213, coordY: 0.55121297, type: 'text', fill: 'red', text: '餐饮  店', fontSize: 16, angle: 10, underline: true },
           { coordX: 0.0016652789342214821, coordY: 0.5929919137466307, id: 3}
         ],
@@ -61,10 +71,10 @@ export default {
 }
 </script>
 <style scoped>
-  .index {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
+.container,
+.map-wrapper {
+  height: 100%;
+  position: relative;
+}
 </style>
 
