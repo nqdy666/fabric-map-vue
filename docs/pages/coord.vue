@@ -37,7 +37,6 @@ export default {
   data() {
     return {
       showOp: false,
-      zoomType: 1,
       svgMapUrl: "https://qiniu.qjzd.net/cf.svg",
       pointList: [
         {

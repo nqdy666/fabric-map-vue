@@ -24,6 +24,7 @@
           { name: 'zoom', label: '缩放类型' },
           { name: 'distance', label: '距离绘制' },
           { name: 'mapswitch', label: '地图切换' },
+          { name: 'background', label: '背景设置' },
         ]
       }
     },
