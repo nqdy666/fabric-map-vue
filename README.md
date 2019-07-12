@@ -14,12 +14,13 @@
 - IE9+
 - Support Typescript
 - Auto resize
-- 坐标定位
-- svg热力图
+- 热力地图
+- 地图定位
+- 距离绘制
+- 地图切换
 
 ## 文档
 - **[Demo](https://nqdy666.github.io/fabric-map-vue/)**
-- **[中文例子](https://nqdy666.github.io/fabric-map-vue/cn/)**
 - **[Example on JSBin](https://jsbin.com/quwakos/edit?html,css,js,output)**
 
 ## 安装
@@ -75,11 +76,19 @@ Vue.use(FabricMapVue)
 <fabric-map-vue svg-map-url="https://qiniu.qjzd.net/cf.svg"></fabric-map-vue>
 ```
 
-## 组件
+## 功能预览
 
-### Methods
+** 热力地图 [示例源码]()**
 
-### Events
+** 缩放类型 [示例源码]()**
+
+** 地图定位 [示例源码]()**
+
+** 距离绘制 [示例源码]()**
+
+** 地图切换 [示例源码]()**
+
+** 背景设置 [示例源码]()**
 
 ## 本地开发
 
