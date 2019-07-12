@@ -15,7 +15,6 @@
           <option :value="1">canvas缩放</option>
           <option :value="2">svg图片缩放</option>
         </select>
-
       </div>
     </div>
     <div class="map-wrapper">

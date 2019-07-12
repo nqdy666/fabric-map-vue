@@ -15,6 +15,21 @@
           <input type="checkbox" v-model="showOp" />
         </div>
         <div>
+          <p>点处于编辑状态时，是否移动时点位跟随</p>
+          <input type="checkbox" v-model="movingMinion" />
+        </div>
+        <div>
+          <p>点处于编辑状态时，是否缩放时点位跟随（缩放类型为svg图片缩放有效）</p>
+          <input type="checkbox" v-model="scalingMinion" />
+        </div>
+        <div>
+          <p>缩放类型</p>
+          <select v-model="zoomType" placeholder="请选择">
+            <option :value="1">canvas缩放</option>
+            <option :value="2">svg图片缩放</option>
+          </select>
+        </div>
+        <div>
           <p>点数据：</p>
           <textarea class="textarea" :rows="10" readonly :value="JSON.stringify(pointList)"></textarea>
         </div>
@@ -27,6 +42,9 @@
         @delete="handleDelete"
         :point-list="pointList"
         :show-op="showOp"
+        :moving-minion="movingMinion"
+        :scaling-minion="scalingMinion"
+        :zoom-type="zoomType"
       ></fabric-map-vue>
     </div>
   </div>
@@ -37,6 +55,9 @@ export default {
   data() {
     return {
       showOp: false,
+      movingMinion: false,
+      scalingMinion: false,
+      zoomType: 1,
       svgMapUrl: "https://qiniu.qjzd.net/cf.svg",
       pointList: [
         {
