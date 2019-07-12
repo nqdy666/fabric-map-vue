@@ -48,7 +48,7 @@ module.exports = Object.assign(routerBase, {
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' },
     ],
     script: [
-      { src: '/js/fabric.js' },
+      { src: 'js/fabric.js' },
     ]
   },
   css: [
