@@ -4,6 +4,10 @@ importScripts('/fabric-map-vue/_nuxt/workbox.4c4f5ca6.js')
 
 workbox.precaching.precacheAndRoute([
   {
+    "url": "/fabric-map-vue/_nuxt/09c75918bc129a184caf.js",
+    "revision": "e4156d57f64d59f83afaf223b1b22270"
+  },
+  {
     "url": "/fabric-map-vue/_nuxt/296339a253806675247f.js",
     "revision": "4bb98319cd06ae4cb5b3e3f0bc60c95d"
   },
@@ -30,10 +34,6 @@ workbox.precaching.precacheAndRoute([
   {
     "url": "/fabric-map-vue/_nuxt/a47e4f085f7c973f1337.css",
     "revision": "0e16a03320057fc99c9750ecfb44b7b1"
-  },
-  {
-    "url": "/fabric-map-vue/_nuxt/ad60880ff24272544b61.js",
-    "revision": "e087a9215ad1d29bae9d3ab1a0e1b4bf"
   },
   {
     "url": "/fabric-map-vue/_nuxt/b256bbf3881232ef0977.css",
