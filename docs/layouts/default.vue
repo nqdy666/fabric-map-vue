@@ -29,7 +29,6 @@
       }
     },
     created () {
-      console.log(this.$route)
     },
     methods: {
       handleTabClick (tab) {
