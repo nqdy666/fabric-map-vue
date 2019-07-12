@@ -28,6 +28,10 @@
           <input type="checkbox" v-model="heatmapMoveDrawable" />
         </div>
         <div>
+          <p>每次增加热力图点的值：</p>
+          <input type="number" v-model="heatmapDrawValue" />
+        </div>
+        <div>
           <p>热力图数据：</p>
           <textarea class="textarea" :rows="10" readonly :value="JSON.stringify(heatmapData)"></textarea>
         </div>
