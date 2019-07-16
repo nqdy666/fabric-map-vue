@@ -1,7 +1,8 @@
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-import BootstrapVue from '../src'
-
+import '../docs/static/js/fabric.js'
+import FabricMapVue from '../src'
+import { pathToFileURL } from 'url';
 const VUE_VERSION = process.env.VUE_VERSION ? 'vue-' + process.env.VUE_VERSION : 'vue'
 
 const Vue = require(`${VUE_VERSION}/dist/vue.common`)
@@ -9,18 +10,24 @@ const Vue = require(`${VUE_VERSION}/dist/vue.common`)
 // Hide development mode warning
 Vue.config.productionTip = false
 
-// Install Vue and BootstrapVue
+// Install Vue and FabricMapVue
 window.Vue = Vue
-Vue.use(BootstrapVue)
+Vue.use(FabricMapVue)
 
 export function loadFixture (dirName, name) {
   const fixtureBase = resolve(dirName, 'fixtures')
   const template = readFileSync(resolve(fixtureBase, name + '.html'), 'UTF-8')
   const js = readFileSync(resolve(fixtureBase, name + '.js'), 'UTF-8')
 
+  // const fabricJs = readFileSync(resolve(dirName, '../../../docs/static/js/fabric.js'), 'UTF-8')
+
   return async () => {
     // Mount template
     document.body.innerHTML = template
+
+    // eslint-disable-next-line no-eval
+    // Eval FabricJs
+    // eval(fabricJs)
 
     // Eval js
     // eslint-disable-next-line no-eval

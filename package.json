@@ -73,7 +73,8 @@
     "highlight-loader": "^0.7.2",
     "highlightjs": "^9.8.0",
     "html-loader": "^0.5.4",
-    "jest": "^22.0.6",
+    "jest": "^22.4.4",
+    "jest-canvas-mock": "^2.1.0",
     "jest-css-modules": "^1.1.0",
     "markdown-loader": "^2.0.2",
     "marked": "^0.3.12",
@@ -100,6 +101,11 @@
     "vue-template-compiler": "^2.5.17"
   },
   "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/",
+    "setupFiles": [
+      "jest-canvas-mock"
+    ],
     "testRegex": "spec.js$",
     "moduleFileExtensions": [
       "js",
@@ -108,7 +114,8 @@
     "transform": {
       "^.+\\.js$": "babel-jest",
       ".*\\.(vue)$": "vue-jest",
-      ".*\\.(css)$": "jest-css-modules"
+      ".*\\.(css)$": "jest-css-modules",
+      ".*\\.(scss)$": "jest-css-modules"
     },
     "coverageDirectory": "./coverage/"
   },
