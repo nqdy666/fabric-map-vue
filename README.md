@@ -19,7 +19,7 @@
 
 ## 文档
 - **[Demo](https://nqdy666.github.io/fabric-map-vue/)**
-- **[Example on JSBin](https://jsbin.com/hukeko/edit?html,css,js,output)**
+- **[Example on JSBin](https://jsbin.com/hukeko/edit?html,output)**
 
 ## 功能预览
 
