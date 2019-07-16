@@ -59,7 +59,7 @@ $ npm install fabric-map-vue
 先需要引用fabric.js
 
 ```html
-<script script="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric.min.js"></script>
 ```
 
 组件注册
