@@ -85,7 +85,7 @@ Vue.use(FabricMapVue)
 ```
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vue@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
 <script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.8/dist/fabric.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js"></script>
 <!-- 使用最新版本 -->

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>fabric-map-vue</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.8/dist/fabric-map-vue.css"/>
+  <style>
+    html,body,#app {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+    #app {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <fabric-map-vue svg-map-url="https://qiniu.qjzd.net/cf.svg" :point-list="pointList"></fabric-map-vue>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.8/dist/fabric.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js"></script>
+  <script src="../dist/fabric-map-vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        pointList: [
+          {
+            id: 1,
+            coordX: 0.30141547,
+            coordY: 0.55013478,
+            type: "img",
+            url: "http://vve.qiniu.qjzd.net/Fgjso-fDXte_VzkvQS2n2d_Fb5uw"
+          },
+          {
+            zoomThreshold: 0.5,
+            id: 2,
+            coordX: 0.6944213,
+            coordY: 0.55121297,
+            type: "text",
+            fill: "red",
+            text: "餐饮店",
+            fontSize: 16,
+            angle: 10,
+            underline: true
+          }
+        ]
+      }
+    })
+  </script>
+</body>
+</html>
