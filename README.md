@@ -2,7 +2,7 @@
 
 [![version](https://img.shields.io/npm/v/fabric-map-vue.svg)](https://www.npmjs.com/package/fabric-map-vue)
 [![download](https://img.shields.io/npm/dm/fabric-map-vue.svg)](https://www.npmjs.com/package/fabric-map-vue)
-[![license](https://img.shields.io/github/license/nqdy666/fabric-map-vue.svg)](https://github.com/nqdy666/fabric-map-vue/blob/ Dev/LICENSE)
+[![license](https://img.shields.io/github/license/nqdy666/fabric-map-vue.svg)](https://github.com/nqdy666/fabric-map-vue/blob/dev/LICENSE)
 
 > Fabric-based map location, SVG heatmap
 
