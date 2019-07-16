@@ -16,8 +16,8 @@ workbox.precaching.precacheAndRoute([
     "revision": "a265221249064ba80415b59b8356476e"
   },
   {
-    "url": "/fabric-map-vue/_nuxt/72f2cf87f24f567fbe37.js",
-    "revision": "7bc84cadeddd9126bccef90c166b2da1"
+    "url": "/fabric-map-vue/_nuxt/7f8f04ab80f1203b26e0.js",
+    "revision": "6e52aea36d70d6e420cacd754abf899d"
   },
   {
     "url": "/fabric-map-vue/_nuxt/91b7d363b8687063f812.css",
