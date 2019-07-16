@@ -59,7 +59,7 @@ $ npm install fabric-map-vue
 先需要引用fabric.js
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.10/dist/fabric.min.js"></script>
 ```
 
 组件注册
@@ -81,17 +81,17 @@ Vue.use(FabricMapVue)
 包含 `vue` 、`fabric.js`、`heatmap.js`、 `fabric-map-vue.js`、`fabric-map-vue.css`
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric-map-vue.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.10/dist/fabric-map-vue.css"/>
 ```
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
-<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.10/dist/fabric.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js"></script>
 <!-- 使用最新版本 -->
 <script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@latest"></script>
 <!-- 或指定某一个版本 -->
-<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9"></script>
+<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.10"></script>
 ```
 
 现在可以使用该组件

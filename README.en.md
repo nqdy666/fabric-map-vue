@@ -59,7 +59,7 @@ $ npm install fabric-map-vue
 First need to quote fabric.js
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.10/dist/fabric.min.js"></script>
 ```
 
 Register the component
@@ -81,17 +81,17 @@ You may now use the component in your markup
 include `vue`, `fabric.js`, `heatmap.js`, `fabric-map-vue.js`, `fabric-map-vue.css`
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric-map-vue.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.10/dist/fabric-map-vue.css"/>
 ```
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
-<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.10/dist/fabric.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js"></script>
 <!-- Use the latest version -->
 <script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@latest"></script>
 <!-- or specify a version -->
-<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9"></script>
+<script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.10"></script>
 ```
 
 You may now use the component in your markup
