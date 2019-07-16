@@ -25,15 +25,27 @@
 
 **热力地图 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/index.vue)**
 
+![热力地图](docs/assets/images/heatmap.gif)
+
 **缩放类型 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/zoom.vue)**
+
+![缩放类型](docs/assets/images/zoom.gif)
 
 **地图定位 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/coord.vue)**
 
+![地图定位](docs/assets/images/coord.gif)
+
 **距离绘制 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/distance.vue)**
+
+![距离绘制](docs/assets/images/distance.gif)
 
 **地图切换 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/mapswitch.vue)**
 
+![地图切换](docs/assets/images/mapswitch.gif)
+
 **背景设置 [示例源码](https://github.com/nqdy666/fabric-map-vue/blob/dev/docs/pages/background.vue)**
+
+![背景设置](docs/assets/images/background.gif)
 
 ## 安装
 
