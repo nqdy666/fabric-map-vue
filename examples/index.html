@@ -18,8 +18,22 @@
 </head>
 <body>
   <div id="app">
-    <fabric-map-vue svg-map-url="https://qiniu.qjzd.net/cf.svg" :point-list="pointList"></fabric-map-vue>
+    <fabric-map-vue :svg-map-url="svgMapUrl"
+    @change="handleChange"
+    @delete="handleDelete"
+    :point-list="pointList"
+    :show-op="showOp"
+    :moving-minion="movingMinion"
+    :scaling-minion="scalingMinion"
+    :zoom-type="zoomType"></fabric-map-vue>
   </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.5/es6-sham.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/symbol-es6@0.1.2/symbol-es6.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/array-includes-polyfill@0.7.2/dist/array-includes-polyfill-es6.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+  <!--[if lt IE 8]>
+    <script type="text/javascript" src="https://cdn.bootcss.com/json2/20160511/json2.min.js"></script>
+  <![endif]-->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
   <script src="https://cdn.jsdelivr.net/npm/fabric-map-vue@0.0.9/dist/fabric.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js"></script>
@@ -28,6 +42,11 @@
     new Vue({
       el: '#app',
       data: {
+        showOp: true,
+        movingMinion: false,
+        scalingMinion: false,
+        zoomType: 1,
+        svgMapUrl: "https://qiniu.qjzd.net/cf.svg",
         pointList: [
           {
             id: 1,
@@ -47,8 +66,49 @@
             fontSize: 16,
             angle: 10,
             underline: true
+          },
+          { coordX: 0.0016652789342214821, coordY: 0.5929919137466307, id: 3 },
+          {
+            startPoints: [
+              {
+                coordX: 0.24424091035248402,
+                coordY: 0.38933812518718175
+              },
+              {
+                coordX: 0.15820149875104078,
+                coordY: 0.5091344713986223
+              },
+              {
+                coordX: 0.32750485706355814,
+                coordY: 0.4941599281221922
+              }
+            ],
+            type: "area",
+            id: 4
           }
         ]
+      },
+      methods: {
+        handleChange: function (data) {
+          if (!data.id) {
+            data.id =
+              Math.max.apply(null, this.pointList.map(function (item) {
+                return item.id
+              }).concat(0)) + 1;
+            this.pointList.push(data);
+          } else {
+            const point = this.pointList.find(function (item) {
+              return item.id === data.id
+            });
+            this.pointList.splice(this.pointList.indexOf(point), 1, data);
+          }
+        },
+        handleDelete: function (data) {
+          const point = this.pointList.find(function (item) {
+            return item.id === data.id
+          })
+          this.pointList.splice(this.pointList.indexOf(point), 1);
+        }
       }
     })
   </script>

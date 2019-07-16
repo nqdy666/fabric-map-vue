@@ -9,8 +9,6 @@
 基于 [fabricjs](http://fabricjs.com/) v2.4.5 开发，热力图基于 [heatmap.js](https://www.patrick-wied.at/static/heatmapjs/) v2.0.5+ 开发，依赖 [Vue.js](https://vuejs.org/) v2.2.6+.
 
 #### 特性
-- IE9+
-- Support Typescript
 - Auto resize
 - 热力地图
 - 地图定位
