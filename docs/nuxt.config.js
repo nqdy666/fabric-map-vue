@@ -2,7 +2,11 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
   router: {
     base: '/fabric-map-vue/'
   }
-} : {}
+} : {
+  router: {
+    base: '/'
+  }
+}
 
 module.exports = Object.assign(routerBase, {
   srcDir: __dirname,
@@ -49,7 +53,7 @@ module.exports = Object.assign(routerBase, {
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' },
     ],
     script: [
-      { src: 'js/fabric.js' },
+      { src: routerBase.router.base + 'js/fabric.js' },
     ]
   },
   css: [
