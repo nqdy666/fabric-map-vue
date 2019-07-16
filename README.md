@@ -4,7 +4,7 @@
 [![download](https://img.shields.io/npm/dm/fabric-map-vue.svg)](https://www.npmjs.com/package/fabric-map-vue)
 [![license](https://img.shields.io/github/license/nqdy666/fabric-map-vue.svg)](https://github.com/nqdy666/fabric-map-vue/blob/dev/LICENSE)
 
-> Fabric-based map location, SVG heatmap
+> Fabric-based map coordinate, SVG heatmap
 
 > [CN 中文版](./README.zh_CN.md)
 
