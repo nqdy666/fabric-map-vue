@@ -4,8 +4,8 @@ importScripts('/fabric-map-vue/_nuxt/workbox.4c4f5ca6.js')
 
 workbox.precaching.precacheAndRoute([
   {
-    "url": "/fabric-map-vue/_nuxt/09c75918bc129a184caf.js",
-    "revision": "e4156d57f64d59f83afaf223b1b22270"
+    "url": "/fabric-map-vue/_nuxt/046ec11c125669bf03f8.js",
+    "revision": "d7650285d5276fb015eb01ee08dc4a14"
   },
   {
     "url": "/fabric-map-vue/_nuxt/296339a253806675247f.js",
@@ -16,8 +16,8 @@ workbox.precaching.precacheAndRoute([
     "revision": "a265221249064ba80415b59b8356476e"
   },
   {
-    "url": "/fabric-map-vue/_nuxt/413ff65d9efb16ad25e4.js",
-    "revision": "57e9025501731969b3e4f6f5bdc3409a"
+    "url": "/fabric-map-vue/_nuxt/72f2cf87f24f567fbe37.js",
+    "revision": "7bc84cadeddd9126bccef90c166b2da1"
   },
   {
     "url": "/fabric-map-vue/_nuxt/91b7d363b8687063f812.css",
@@ -26,10 +26,6 @@ workbox.precaching.precacheAndRoute([
   {
     "url": "/fabric-map-vue/_nuxt/9270370e39a1b1c7649e.js",
     "revision": "1f8150718fe54819d08cd1e572205772"
-  },
-  {
-    "url": "/fabric-map-vue/_nuxt/9c5b474add055f906709.js",
-    "revision": "e88adb75a962bb969f0a7c34e99fc0d0"
   },
   {
     "url": "/fabric-map-vue/_nuxt/a47e4f085f7c973f1337.css",
@@ -54,6 +50,10 @@ workbox.precaching.precacheAndRoute([
   {
     "url": "/fabric-map-vue/_nuxt/d3b2c4c5512ca88e4105.css",
     "revision": "131e2b6f692ca43c3b84f2b33bae9607"
+  },
+  {
+    "url": "/fabric-map-vue/_nuxt/d8a259adead003a3fa63.js",
+    "revision": "829021ad17265a1a3a4fc7bb80f92e09"
   },
   {
     "url": "/fabric-map-vue/_nuxt/dfa6f8bcd668c47b3c6c.css",
