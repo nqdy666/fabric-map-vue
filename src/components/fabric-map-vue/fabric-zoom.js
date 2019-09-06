@@ -1,9 +1,4 @@
-import { OBJ_POINT } from './constants'
-
-const ZOOM_TYPE = {
-  CANVAS: 1,
-  MAP: 2,
-}
+import { OBJ_POINT, ZOOM_TYPE } from './constants'
 
 const DEFAULT_ZOOM_STEP = 0.1
 
@@ -57,7 +52,7 @@ export default {
           // canvas zoom, 支持沿着中心点缩放
           if (opt.target === this.svgMap) {
             let zoom = this.canvas.getZoom()
-            zoom = zoom +  -(delta / this.zoomRate)
+            zoom = zoom + -(delta / this.zoomRate)
             if (zoom > this.maxZoom) zoom = this.maxZoom
             if (zoom < this.minZoom) zoom = this.minZoom
             this.canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom)

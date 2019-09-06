@@ -1,6 +1,7 @@
 import h337 from 'heatmap.js'
 import debounce from 'lodash.debounce'
 import { addListener } from 'resize-detector'
+import { ZOOM_TYPE } from './constants'
 
 export default {
   props: {
@@ -24,6 +25,10 @@ export default {
         return []
       }
     },
+    heatmapRadiusZoom: {
+      type: Boolean,
+      default: false
+    },
     heatmapClickDrawable: {
       type: Boolean,
       default: false
@@ -35,6 +40,14 @@ export default {
     heatmapDrawValue: {
       type: Number,
       default: 1
+    },
+  },
+  computed: {
+    mHeatmapOptions () {
+      return {
+        radius: 40, // 默认
+        ...this.heatmapOptions,
+      }
     }
   },
   methods: {
@@ -53,7 +66,7 @@ export default {
     _handleHeatmapResize () {
       if (!this.$heatmapEl) return
       this.heatmap.configure({
-        ...this.heatmapOptions,
+        ...this.mHeatmapOptions,
         width: this.$heatmapEl.clientWidth,
         height: this.$heatmapEl.clientHeight
       })
@@ -93,11 +106,23 @@ export default {
     },
     renderHeatmap () {
       const data = this.heatmapData.map(item => {
-        const { coordX = 0, coordY = 0, ...rest } = item
+        const { coordX = 0, coordY = 0, radius, ...rest } = item
         let { x, y } = this.svgRateInfo2Point({ coordX, coordY }, true)
+        let _radius = radius || this.mHeatmapOptions.radius
+
+        // 热力图在缩放的时候是否能够跟随缩放，不会因缩放而导致热力集中或分散
+        if (this.heatmapRadiusZoom && this.svgMap && this.canvas) {
+          if (this.zoomType === ZOOM_TYPE.MAP) {
+            _radius = _radius * this.svgMap.scaleX
+          } else {
+            _radius = _radius * this.canvas.getZoom()
+          }
+        }
+
         return {
           x, y,
-          ...rest
+          radius: _radius,
+          ...rest,
         }
       })
       this.heatmap && this.heatmap.setData({
@@ -126,7 +151,10 @@ export default {
     heatmapData () {
       this.renderHeatmap()
     },
-    heatmapOptions (val) {
+    heatmapRadiusZoom () {
+      this.renderHeatmap()
+    },
+    mHeatmapOptions (val) {
       this.heatmap && this.heatmap.configure(val)
     },
     heatmapMin (val) {

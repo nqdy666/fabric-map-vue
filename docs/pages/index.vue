@@ -20,6 +20,10 @@
           <input type="number" v-model="heatmapMax" />
         </div>
         <div>
+          <p>热力半径伴随缩放：</p>
+          <input type="checkbox" v-model="heatmapRadiusZoom" />
+        </div>
+        <div>
           <p>是否在点击位置增加热力图点：</p>
           <input type="checkbox" v-model="heatmapClickDrawable" />
         </div>
@@ -39,9 +43,11 @@
     </div>
     <div class="map-wrapper">
       <fabric-map-vue
+        :zoom-type="1"
         :svg-map-url="svgMapUrl"
         :heatmap-min="heatmapMin"
         :heatmap-max="heatmapMax"
+        :heatmap-radius-zoom="heatmapRadiusZoom"
         :heatmap-options="heatmapOptions"
         :heatmap-data="heatmapData"
         @heatmapAdd="handleHeatmapAdd"
@@ -58,9 +64,11 @@ export default {
   data() {
     return {
       svgMapUrl: "https://qiniu.qjzd.net/cf.svg",
-      heatmapOptions: {}, // 参考
+      heatmapOptions: {
+      }, // 参考
       heatmapMin: 0,
       heatmapMax: 100,
+      heatmapRadiusZoom: false,
       heatmapData: [
         { coordX: 0.3420529188639098, coordY: 0.3743635819107519, value: 20 },
         { coordX: 0.49285317790729966, coordY: 0.32195268044324665, value: 20 },

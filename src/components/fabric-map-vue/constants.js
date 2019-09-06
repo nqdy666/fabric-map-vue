@@ -5,3 +5,8 @@ export const POINT_TYPE_ENUM = {
 }
 
 export const OBJ_POINT = 'point'
+
+export const ZOOM_TYPE = {
+  CANVAS: 1,
+  MAP: 2,
+}
