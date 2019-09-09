@@ -60,11 +60,36 @@ export default {
       zoomType: 1,
       svgMapUrl: "https://qiniu.qjzd.net/cf.svg",
       pointList: [
+        { 
+          id: 123,
+          type: 'imgtext',
+          coordX: 0.2,
+          coordY: 0.2,
+          image: {
+            url: "http://vve.qiniu.qjzd.net/Fgjso-fDXte_VzkvQS2n2d_Fb5uw",
+            originX: 'center',
+            originY: 'center',
+            width: 20,
+            height: 23,
+            top: 0,
+            left: 0,
+          },
+          text: {
+            text: '12sdfsdf3',
+            originX: 'center',
+            originY: 'center',
+            top: 25,
+            left: 0,
+            fontSize: 16,
+          },
+        },
         {
           id: 1,
-          coordX: 0.30141547,
-          coordY: 0.55013478,
+          coordX: 0.5,
+          coordY: 0.5,
           type: "img",
+          // originX: 'left',
+          // originY: 'top',
           url: "http://vve.qiniu.qjzd.net/Fgjso-fDXte_VzkvQS2n2d_Fb5uw"
         },
         {

@@ -43,6 +43,7 @@ import './fabric-map-vue.scss'
 import FabricReizeableCavas from './fabric-resizeable-canvas'
 import DirBtn from './dir-btn'
 import FmForm from './FmForm'
+import FabricImgText from './fabric-img-text'
 
 // 过滤key
 function filterObjByKeys(arrKeys = [], obj = {}) {
@@ -255,6 +256,12 @@ export default {
         })
         point.originX = 'left'
         point.originY = 'top'
+      } else if (mPointInfo.type === 'imgtext') {
+        const image = await this.loadImage(mPointInfo.image.url, mPointInfo.image)
+        const text = new fabric.IText(mPointInfo.text.text, mPointInfo.text)
+        point = new FabricImgText(image, text, mPointInfo)
+        point.originX = mPointInfo.originX || 'center'
+        point.originY = mPointInfo.originY || 'center'
       } else {
         return // 如果不是要求的类型，不显示
       }
