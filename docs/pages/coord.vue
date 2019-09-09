@@ -60,7 +60,7 @@ export default {
       zoomType: 1,
       svgMapUrl: "https://qiniu.qjzd.net/cf.svg",
       pointList: [
-        { 
+        {
           id: 123,
           type: 'imgtext',
           coordX: 0.2,
