@@ -257,8 +257,14 @@ export default {
         point.originX = 'left'
         point.originY = 'top'
       } else if (mPointInfo.type === 'imgtext') {
-        const image = await this.loadImage(mPointInfo.image.url, mPointInfo.image)
-        const text = new fabric.IText(mPointInfo.text.text, mPointInfo.text)
+        let image
+        if (mPointInfo.image && mPointInfo.image.url) {
+          image = await this.loadImage(mPointInfo.image.url, mPointInfo.image)
+        }
+        let text
+        if (mPointInfo.text && mPointInfo.text.text) {
+          text = new fabric.IText(mPointInfo.text.text, mPointInfo.text)
+        }
         point = new FabricImgText(image, text, mPointInfo)
         point.originX = mPointInfo.originX || 'center'
         point.originY = mPointInfo.originY || 'center'
